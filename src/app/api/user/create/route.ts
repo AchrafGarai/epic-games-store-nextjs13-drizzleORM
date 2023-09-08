@@ -7,6 +7,7 @@ import { users } from "@/db/schema";
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const CREATE_EVENT = "user.create";
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -57,15 +58,17 @@ export async function POST(req: Request) {
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
   console.log("Webhook body:", body);
 
-  await db
-    .insert(users)
-    .values({
-      authId: id,
-      profilePictureUrl: profile_image_url,
-      email: evt.data.email_addresses[0].email_address,
-      username: evt.data.username,
-    })
-    .returning();
+  if (eventType == CREATE_EVENT) {
+    await db
+      .insert(users)
+      .values({
+        authId: id,
+        profilePictureUrl: profile_image_url,
+        email: evt.data.email_addresses[0].email_address,
+        username: evt.data.username,
+      })
+      .returning();
+  }
 
   return new Response("", { status: 201 });
 }
