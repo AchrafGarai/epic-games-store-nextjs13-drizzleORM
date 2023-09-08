@@ -8,6 +8,20 @@
       "when": 1693999998823,
       "tag": "0000_young_zzzax",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1694172051536,
+      "tag": "0001_far_callisto",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1694182846828,
+      "tag": "0002_cute_lady_bullseye",
+      "breakpoints": true
     }
   ]
 }

@@ -33,3 +33,13 @@ export const cities = pgTable("cities", {
   countryId: integer("country_id").references(() => countries.id),
   popularity: popularityEnum("popularity"),
 });
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  authId: varchar("auth_id", { length: 256 }),
+  email: varchar("email", { length: 256 }),
+  profilePictureUrl: varchar("profile_picture_url", { length: 256 }),
+  username: varchar("username", { length: 256 }),
+});
+
+type User = typeof users.$inferSelect;
