@@ -40,9 +40,8 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 256 }),
   profilePictureUrl: varchar("profile_picture_url", { length: 256 }),
   username: varchar("username", { length: 256 }),
-  firstName : varchar("first_name", { length: 256 }),
-  LastName : varchar("last_name", { length: 256 }),
-  createdAt : 
+  firstName: varchar("first_name", { length: 256 }),
+  LastName: varchar("last_name", { length: 256 }),
 });
 
 type User = typeof users.$inferSelect;
