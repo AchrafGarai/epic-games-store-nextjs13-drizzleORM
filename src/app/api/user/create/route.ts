@@ -1,10 +1,8 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import db from '@/db'
-import { users } from '@/db/schema'
-import { eq } from 'drizzle-orm'
-import { createUser, deleteUser } from '@/utils'
+import { CreateUser, users } from '@/db/schema'
+import { createUser, deleteUser, updateUser } from '@/utils'
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -57,38 +55,40 @@ export async function POST(req: Request) {
   const { id } = evt.data
   const eventType = evt.type
 
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-  console.log('Webhook body:', body)
+  // console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
+  // console.log('Webhook body:', body)
 
-  if (eventType === 'user.created') {
-    // Create User from webhook event
-    // await db
-    //   .insert(users)
-    //   .values({
-    //     authId: id,
-    //     profilePictureUrl: evt.data.image_url,
-    //     email: evt.data.email_addresses[0].email_address,
-    //     username: evt.data.username,
-    //     firstName: evt.data.first_name,
-    //     LastName: evt.data.last_name,
-    //     createdAt: new Date(evt.data.created_at),
-    //   })
-    //   .returning()
-
-    await createUser({
-      authId: id,
-      profilePictureUrl: evt.data.image_url,
-      email: evt.data.email_addresses[0].email_address,
-      username: evt.data.username,
-      firstName: evt.data.first_name,
-      LastName: evt.data.last_name,
-      createdAt: new Date(evt.data.created_at),
-    })
-  } else if (eventType === 'user.deleted') {
-    // Delete User from webhook event
-    if (evt.data.id) {
-      await deleteUser(evt.data.id)
-    }
+  switch (eventType) {
+    case 'user.created':
+      const userDto: CreateUser = {
+        authId: id,
+        profilePictureUrl: evt.data.image_url,
+        email: evt.data.email_addresses[0].email_address,
+        username: evt.data.username,
+        firstName: evt.data.first_name,
+        LastName: evt.data.last_name,
+        createdAt: new Date(evt.data.created_at),
+      }
+      await createUser(userDto)
+      break
+    case 'user.updated':
+      if (evt.data.id) {
+        const userDto: CreateUser = {
+          authId: id,
+          profilePictureUrl: evt.data.image_url,
+          email: evt.data.email_addresses[0].email_address,
+          username: evt.data.username,
+          firstName: evt.data.first_name,
+          LastName: evt.data.last_name,
+        }
+        await updateUser(userDto)
+      }
+      break
+    case 'user.deleted':
+      if (evt.data.id) {
+        await deleteUser(evt.data.id)
+      }
+      break
   }
 
   return new Response('', { status: 201 })

@@ -5,15 +5,7 @@ import { eq } from 'drizzle-orm'
 export const createUser = async (user: CreateUser) => {
   await db
     .insert(users)
-    .values({
-      authId: user.authId,
-      profilePictureUrl: user.profilePictureUrl,
-      email: user.email,
-      username: user.email,
-      firstName: user.firstName,
-      LastName: user.LastName,
-      createdAt: user.createdAt,
-    })
+    .values({ ...user })
     .returning()
 }
 
@@ -22,4 +14,14 @@ export const deleteUser = async (userId: string) => {
     .delete(users)
     .where(eq(users.authId, userId))
     .returning({ deletedId: users.authId })
+}
+
+export const updateUser = async (user: CreateUser) => {
+  // const userId = user.authId || ''
+  if (user.authId) {
+    await db
+      .update(users)
+      .set({ ...user })
+      .where(eq(users.authId, user.authId))
+  }
 }
