@@ -1,4 +1,4 @@
-import { users, CreateUser } from '@/db/schema'
+import { users, CreateUser } from '@/db/user/schema'
 import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 
