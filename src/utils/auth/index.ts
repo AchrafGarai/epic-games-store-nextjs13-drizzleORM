@@ -1,5 +1,5 @@
 import { users, CreateUser } from '@/db/schema'
-import db from '@/db'
+import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 
 export const createUser = async (user: CreateUser) => {

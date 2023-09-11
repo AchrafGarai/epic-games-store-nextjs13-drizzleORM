@@ -1,13 +1,17 @@
+import { relations } from 'drizzle-orm'
 import {
   date,
   integer,
+  numeric,
   pgEnum,
   pgTable,
+  primaryKey,
   serial,
   timestamp,
   uniqueIndex,
   varchar,
 } from 'drizzle-orm/pg-core'
+import { games, libraryItems } from '../game/schema'
 
 // declaring enum in database
 export const popularityEnum = pgEnum('popularity', [
@@ -46,6 +50,10 @@ export const users = pgTable('users', {
   LastName: varchar('last_name', { length: 256 }),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
 })
+
+export const usersRelations = relations(users, ({ many }) => ({
+  library: many(libraryItems),
+}))
 
 export type User = typeof users.$inferSelect
 export type CreateUser = typeof users.$inferInsert
