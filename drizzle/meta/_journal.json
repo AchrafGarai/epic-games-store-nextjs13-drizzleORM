@@ -71,6 +71,34 @@
       "when": 1694464258813,
       "tag": "0009_black_mercury",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1694520649791,
+      "tag": "0010_blushing_hardball",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1694524831147,
+      "tag": "0011_colorful_iceman",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1694527102903,
+      "tag": "0012_sparkling_fixer",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "5",
+      "when": 1694528335528,
+      "tag": "0013_known_captain_cross",
+      "breakpoints": true
     }
   ]
 }

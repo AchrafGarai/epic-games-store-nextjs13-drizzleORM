@@ -17,6 +17,18 @@ export async function GET() {
           },
         },
       },
+      platforms: {
+        columns: {},
+        with: {
+          platform: {
+            columns: {
+              name: true,
+            },
+          },
+        },
+      },
+      // categories: true,
+      // platforms: true,
     },
   });
   return NextResponse.json({ data });

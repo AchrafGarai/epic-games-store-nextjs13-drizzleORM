@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm'
+import { relations } from "drizzle-orm";
 import {
   date,
   integer,
@@ -8,49 +8,48 @@ import {
   serial,
   timestamp,
   varchar,
-} from 'drizzle-orm/pg-core'
-import { users } from '../user/schema'
+} from "drizzle-orm/pg-core";
+import { users } from "../user/schema";
+import { platform } from "os";
 
-export const games = pgTable('games', {
-  id: serial('id').primaryKey().notNull(),
-  coverImageUrl: varchar('cover_image_url', { length: 256 }),
-  title: varchar('title', { length: 256 }).notNull(),
-  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
-  releasedAt: date('released_at', { mode: 'date' }),
-  price: numeric('price'),
-})
+export const games = pgTable("games", {
+  id: serial("id").primaryKey().notNull(),
+  coverImageUrl: varchar("cover_image_url", { length: 256 }),
+  title: varchar("title", { length: 256 }).notNull(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  releasedAt: date("released_at", { mode: "date" }),
+  price: numeric("price"),
+});
 
 export const gamesRelations = relations(games, ({ many }) => ({
   categories: many(gamesToCategories),
-}))
+  platforms: many(gamesToPlatforms),
+}));
 
-export type Game = typeof games.$inferSelect
-export type CreateGame = typeof games.$inferInsert
-
-export const categories = pgTable('categories', {
-  id: serial('id').primaryKey().notNull(),
-  name: varchar('name', { length: 256 }).notNull().unique(),
-  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
-})
+export const categories = pgTable("categories", {
+  id: serial("id").primaryKey().notNull(),
+  name: varchar("name", { length: 256 }).notNull().unique(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
+});
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
   games: many(gamesToCategories),
-}))
+}));
 
 export const gamesToCategories = pgTable(
-  'games_to_categories',
+  "games_to_categories",
   {
-    gameId: integer('game_id')
+    gameId: integer("game_id")
       .notNull()
       .references(() => games.id),
-    categoryId: integer('category_id')
+    categoryId: integer("category_id")
       .notNull()
       .references(() => categories.id),
   },
   (t) => ({
     pk: primaryKey(t.gameId, t.categoryId),
-  }),
-)
+  })
+);
 
 export const gamesToCategoriesRelations = relations(
   gamesToCategories,
@@ -63,20 +62,20 @@ export const gamesToCategoriesRelations = relations(
       fields: [gamesToCategories.gameId],
       references: [games.id],
     }),
-  }),
-)
+  })
+);
 
 export const libraryItems = pgTable(
-  'library_items',
+  "library_items",
   {
-    createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
-    gameId: serial('game_id').notNull(),
-    userId: serial('user_id').notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
+    gameId: serial("game_id").notNull(),
+    userId: serial("user_id").notNull(),
   },
   (t) => ({
     pk: primaryKey(t.gameId, t.userId),
-  }),
-)
+  })
+);
 
 export const libraryItemsRelations = relations(libraryItems, ({ one }) => ({
   game: one(games, {
@@ -87,7 +86,48 @@ export const libraryItemsRelations = relations(libraryItems, ({ one }) => ({
     fields: [libraryItems.userId],
     references: [users.id],
   }),
-}))
+}));
 
-export type LibraryItem = typeof libraryItems.$inferSelect
-export type CreateLibraryItem = typeof libraryItems.$inferInsert
+export const platforms = pgTable("platforms", {
+  platformId: serial("platform_id").primaryKey().notNull(),
+  name: varchar("name", { length: 256 }).notNull(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
+});
+
+export const PlatformsRelations = relations(platforms, ({ many }) => ({
+  games: many(gamesToPlatforms),
+}));
+
+export const gamesToPlatforms = pgTable(
+  "games_to_platforms",
+  {
+    gameId: integer("game_id")
+      .notNull()
+      .references(() => games.id),
+    platformId: integer("platform")
+      .notNull()
+      .references(() => platforms.platformId),
+  },
+  (t) => ({
+    pk: primaryKey(t.gameId, t.platformId),
+  })
+);
+
+export const gamesToPlatformsRelations = relations(
+  gamesToPlatforms,
+  ({ one }) => ({
+    game: one(games, {
+      fields: [gamesToPlatforms.gameId],
+      references: [games.id],
+    }),
+    platform: one(platforms, {
+      fields: [gamesToPlatforms.platformId],
+      references: [platforms.platformId],
+    }),
+  })
+);
+
+export type Game = typeof games.$inferSelect;
+export type CreateGame = typeof games.$inferInsert;
+export type LibraryItem = typeof libraryItems.$inferSelect;
+export type CreateLibraryItem = typeof libraryItems.$inferInsert;
