@@ -1,8 +1,5 @@
-import { db } from '@/db'
-import { NextResponse } from 'next/server'
-import { games } from '@/db/game/schema'
-import { users } from '@/db/user/schema'
-import { eq } from 'drizzle-orm'
+import { db } from "@/db";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const data = await db.query.games.findMany({
@@ -21,6 +18,6 @@ export async function GET() {
         },
       },
     },
-  })
-  return NextResponse.json({ data })
+  });
+  return NextResponse.json({ data });
 }
