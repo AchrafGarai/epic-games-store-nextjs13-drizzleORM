@@ -25,6 +25,12 @@ export async function GET() {
           },
         },
       },
+      media: {
+        columns: {
+          mediaType: true,
+          mediaUrl: true,
+        },
+      },
     },
   })
   // const data = await db

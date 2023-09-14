@@ -99,6 +99,13 @@
       "when": 1694528335528,
       "tag": "0013_known_captain_cross",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "5",
+      "when": 1694611580073,
+      "tag": "0014_lovely_sue_storm",
+      "breakpoints": true
     }
   ]
 }

@@ -11,6 +11,7 @@ import {
 } from 'drizzle-orm/pg-core'
 import { users } from '../user/schema'
 import { gamesToPlatforms } from '../platforms/schema'
+import { media } from '../media/schema'
 
 export const games = pgTable('games', {
   id: serial('id').primaryKey().notNull(),
@@ -24,6 +25,7 @@ export const games = pgTable('games', {
 export const gamesRelations = relations(games, ({ many }) => ({
   categories: many(gamesToCategories),
   platforms: many(gamesToPlatforms),
+  media: many(media),
 }))
 
 export const categories = pgTable('categories', {
