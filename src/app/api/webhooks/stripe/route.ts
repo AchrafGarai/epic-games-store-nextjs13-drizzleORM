@@ -25,9 +25,7 @@ export async function POST(req: Request) {
         if (event.type === 'checkout.session.completed') {
           try {
             const { client_reference_id } = event.data.object as any
-            console.log(event.data.object)
             const { stripeId, authId } = JSON.parse(client_reference_id)
-            console.log(stripeId, authId)
 
             if (stripeId && authId) {
               const game = await db.query.games.findFirst({
