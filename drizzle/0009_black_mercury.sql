@@ -1,0 +1,1 @@
+ALTER TABLE "library_item" RENAME TO "library_items";

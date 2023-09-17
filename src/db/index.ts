@@ -1,10 +1,20 @@
-import { neon, neonConfig } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
+import { neon, neonConfig } from '@neondatabase/serverless'
+import { drizzle } from 'drizzle-orm/neon-http'
+import * as userSchema from './user/schema'
+import * as gameSchema from './game/schema'
+import * as platfomsSchema from './platforms/schema'
+import * as mediaSchema from './media/schema'
 
-neonConfig.fetchConnectionCache = true;
+neonConfig.fetchConnectionCache = true
 
-const sql = neon(process.env.DRIZZLE_DATABASE_URL!);
-const db = drizzle(sql);
+const schema = {
+  ...userSchema,
+  ...gameSchema,
+  ...platfomsSchema,
+  ...mediaSchema,
+}
+const sql = neon(process.env.DRIZZLE_DATABASE_URL!)
+const db = drizzle(sql, { schema })
 
-export default db;
+export { db }
 // const result = await db.select().from(...);
