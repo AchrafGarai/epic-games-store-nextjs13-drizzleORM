@@ -20,6 +20,7 @@ export const games = pgTable('games', {
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
   releasedAt: date('released_at', { mode: 'date' }),
   price: numeric('price'),
+  stripeId: varchar('stripe_id', { length: 256 }),
 })
 
 export const gamesRelations = relations(games, ({ many }) => ({

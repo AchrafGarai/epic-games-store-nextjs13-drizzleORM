@@ -17,12 +17,12 @@ export const media = pgTable('media', {
   mediaUrl: varchar('media_url', { length: 256 }).notNull(),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   mediaType: mediaType('media_type'),
-  gameId: integer('game_id').references(() => games.id),
+  gameId: integer('game_id'),
 })
 
 export const mediaRelations = relations(media, ({ one }) => ({
   gameId: one(games, {
-    fields: [media.id],
+    fields: [media.gameId],
     references: [games.id],
   }),
 }))
