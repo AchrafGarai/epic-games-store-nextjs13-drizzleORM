@@ -1,12 +1,11 @@
-import { redirect } from 'next/navigation'
 import { stripe } from '@/utils/stripe'
 import { NextResponse } from 'next/server'
-import { RedirectType } from 'next/dist/client/components/redirect'
+import { auth } from '@clerk/nextjs/server'
 
 export async function POST(request: Request, response: Response) {
   const req = await request.json()
   const { stripeId } = req
-
+  const { userId } = auth()
   try {
     // Create Checkout Sessions from body params.
     const { url } = await stripe.checkout.sessions.create({
@@ -17,6 +16,10 @@ export async function POST(request: Request, response: Response) {
           quantity: 1,
         },
       ],
+      client_reference_id: JSON.stringify({
+        authId: userId,
+        stripeId,
+      }),
       mode: 'payment',
       success_url: `https://www.google.com/?success=true`,
       cancel_url: `https://www.google.com/?canceled=true`,

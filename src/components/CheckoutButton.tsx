@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 const CheckoutButton = () => {
   const router = useRouter()
   const openCheckout = async () => {
-    const r: RequestRedirect = 'follow'
     var myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
 
@@ -18,7 +17,6 @@ const CheckoutButton = () => {
       method: 'POST',
       headers: myHeaders,
       body: raw,
-      redirect: r,
     }
 
     const { checkoutUrl } = await fetch(
