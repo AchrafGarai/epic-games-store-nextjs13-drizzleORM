@@ -1,43 +1,48 @@
 import { db } from '@/db'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { games } from '@/db/game/schema'
+import { categories, games, gamesToCategories } from '@/db/game/schema'
 import { media } from '@/db/media/schema'
 import { stripe } from '@/utils/stripe'
 import { createGameSchema } from './schema'
-import { eq } from 'drizzle-orm'
+import { and, eq, ilike, inArray } from 'drizzle-orm'
+import { platforms } from '@/db/platforms/schema'
 
-export async function GET() {
-  const data = await db.query.games.findMany({
-    with: {
-      categories: {
-        columns: {},
-        with: {
-          category: {
-            columns: {
-              name: true,
-            },
-          },
-        },
-      },
-      platforms: {
-        columns: {},
-        with: {
-          platform: {
-            columns: {
-              name: true,
-            },
-          },
-        },
-      },
-      media: {
-        columns: {
-          mediaType: true,
-          mediaUrl: true,
-        },
-      },
-    },
-  })
+export async function GET(request: Request) {
+  // Load queries from URL
+  const { searchParams } = new URL(request.url)
+  const param = searchParams.get('q')
+  const paramCategories = searchParams.get('categories')?.split('|') || null
+  const paramPlatforms = searchParams.get('platforms')?.split('|') || null
+
+  const limit = Number(searchParams.get('limit'))
+  const offset = Number(searchParams.get('offset'))
+
+  // Create search conditions
+  const searchCondition = param ? ilike(games.title, `%${param}%`) : undefined
+  const categoriesConditions = paramCategories
+    ? inArray(categories.name, paramCategories)
+    : undefined
+  const platfromsConditions = paramPlatforms
+    ? inArray(platforms.name, paramPlatforms)
+    : undefined
+
+  const query = db.select().from(games)
+
+  if (paramCategories) {
+    query.innerJoin(categories, eq(games.id, categories.id))
+  }
+
+  if (paramPlatforms) {
+    query.innerJoin(platforms, eq(games.id, platforms.platformId))
+  }
+  query
+    .where(and(categoriesConditions, searchCondition, platfromsConditions))
+    .limit(limit)
+    .offset(offset)
+
+  const data = await query
+
   return NextResponse.json({ data })
 }
 
