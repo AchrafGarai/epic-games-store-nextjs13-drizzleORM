@@ -6,6 +6,7 @@ import { media } from '@/db/media/schema'
 import { stripe } from '@/utils/stripe'
 import { createGameSchema } from './schema'
 import { and, eq, ilike, inArray } from 'drizzle-orm'
+import { platforms } from '@/db/platforms/schema'
 
 export async function GET(request: Request) {
   // Load queries from URL
@@ -22,6 +23,9 @@ export async function GET(request: Request) {
   const categoriesConditions = paramCategories
     ? inArray(categories.name, paramCategories)
     : undefined
+  const platfromsConditions = paramPlatforms
+    ? inArray(platforms.name, paramPlatforms)
+    : undefined
 
   const query = db.select().from(games)
 
@@ -29,8 +33,11 @@ export async function GET(request: Request) {
     query.innerJoin(categories, eq(games.id, categories.id))
   }
 
+  if (paramPlatforms) {
+    query.innerJoin(platforms, eq(games.id, platforms.platformId))
+  }
   query
-    .where(and(categoriesConditions, searchCondition))
+    .where(and(categoriesConditions, searchCondition, platfromsConditions))
     .limit(limit)
     .offset(offset)
 
