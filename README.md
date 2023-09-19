@@ -51,7 +51,8 @@ Before you can run the Epic Games Store clone locally, you'll need to have the f
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/epic-games-clone.git
+   git clone https://github.com/AchrafGarai/epic-games-store-nextjs13-drizzleORM
+   ```
 
 ## Getting Started
 
