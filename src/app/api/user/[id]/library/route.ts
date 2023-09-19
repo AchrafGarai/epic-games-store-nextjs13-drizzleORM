@@ -1,6 +1,8 @@
 import { db } from "@/db";
 import { NextResponse } from "next/server";
 import { libraryItems } from "@/db/game/schema";
+import { users } from "@/db/user/schema";
+import { games } from "@/db/game/schema";
 import { eq } from "drizzle-orm";
 
 export async function GET(
@@ -11,7 +13,6 @@ export async function GET(
   try {
     const data = await db.query.libraryItems.findMany({
       where: eq(libraryItems.userId, id),
-      columns: {},
       with: {
         game: true,
       },
