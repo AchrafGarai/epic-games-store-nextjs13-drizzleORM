@@ -1,4 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Epic Games Store Clone with Next.js, Drizzle, Clerk, and Neon DB
+
+Welcome to the Epic Games Store clone project! This repository contains the code and resources for building a clone of the Epic Games Store using Next.js, a popular React framework, Drizzle ORM, Clerk for authentication, and NeonDB. This project is designed with a focus on deploying to the edge network for optimized runtime performance.
+
+![Epic Games Store Clone](https://assetsio.reedpopcdn.com/epic%20social%20features.jpg)
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+
+The Epic Games Store clone project is an educational endeavor to recreate the user interface and basic functionality of the popular Epic Games Store. It serves as an example of how to build a modern web application using Next.js, Drizzle, Clerk, and Neon DB while being optimized for edge network deployment.
+
+## Features
+
+- User authentication and registration using Clerk
+- Browse and search for games
+- View game details, including descriptions and screenshots
+- Add games to a shopping cart
+- Checkout and complete purchases
+- User account management
+- Admin panel for managing games and users (if desired)
+
+## Technologies
+
+- [Next.js](https://nextjs.org/) - A React framework for building web applications.
+- [Drizzle](https://drizzle.dev/) - An ORM for database operations.
+- [Clerk](https://clerk.dev/) - A library for authentication and user management.
+- [Neon DB](https://neondb.io/) - A PostgreSQL database for storing application data.
+
+## Getting Started
+
+### Prerequisites
+
+Before you can run the Epic Games Store clone locally, you'll need to have the following software installed on your system:
+
+- [Node.js](https://nodejs.org/) (>=14.0.0)
+- [pnpm](https://nodejs.org/)
+
+### Installation
+
+1. Clone this repository to your local machine:
+
+   ```bash
+   git clone https://github.com/AchrafGarai/epic-games-store-nextjs13-drizzleORM
+   ```
 
 ## Getting Started
 
@@ -13,22 +67,3 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
