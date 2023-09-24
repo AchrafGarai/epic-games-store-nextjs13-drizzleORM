@@ -11,11 +11,8 @@ export async function GET(
 ) {
   const id = Number(params.id);
   try {
-    const data = await db.query.libraryItems.findMany({
-      where: eq(libraryItems.userId, id),
-      with: {
-        game: true,
-      },
+    const data = await db.query.users.findFirst({
+      where: eq(users.id, id),
     });
     return NextResponse.json({ data });
   } catch (e) {
