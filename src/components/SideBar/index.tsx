@@ -34,7 +34,7 @@ function SideBar() {
       <div className="p-4 flex items-center justify-center">
         <Link href={"/"}>
           <Image
-            src={"epic-games-logo.svg"}
+            src={"/epic-games-logo-2.png"}
             alt="epic games logo"
             width={45}
             height={54}

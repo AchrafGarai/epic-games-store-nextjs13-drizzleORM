@@ -96,3 +96,4 @@ export type Game = typeof games.$inferSelect;
 export type CreateGame = typeof games.$inferInsert;
 export type LibraryItem = typeof libraryItems.$inferSelect;
 export type CreateLibraryItem = typeof libraryItems.$inferInsert;
+export type Category = typeof categories.$inferSelect;

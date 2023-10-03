@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm'
+import { relations } from "drizzle-orm";
 import {
   date,
   integer,
@@ -8,34 +8,34 @@ import {
   serial,
   timestamp,
   varchar,
-} from 'drizzle-orm/pg-core'
-import { users } from '../user/schema'
-import { games } from '../game/schema'
+} from "drizzle-orm/pg-core";
+import { users } from "../user/schema";
+import { games } from "../game/schema";
 
-export const platforms = pgTable('platforms', {
-  platformId: serial('platform_id').primaryKey().notNull(),
-  name: varchar('name', { length: 256 }).notNull(),
-  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
-})
+export const platforms = pgTable("platforms", {
+  platformId: serial("platform_id").primaryKey().notNull(),
+  name: varchar("name", { length: 256 }).notNull(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
+});
 
 export const PlatformsRelations = relations(platforms, ({ many }) => ({
   games: many(gamesToPlatforms),
-}))
+}));
 
 export const gamesToPlatforms = pgTable(
-  'games_to_platforms',
+  "games_to_platforms",
   {
-    gameId: integer('game_id')
+    gameId: integer("game_id")
       .notNull()
       .references(() => games.id),
-    platformId: integer('platform')
+    platformId: integer("platform")
       .notNull()
       .references(() => platforms.platformId),
   },
   (t) => ({
     pk: primaryKey(t.gameId, t.platformId),
-  }),
-)
+  })
+);
 
 export const gamesToPlatformsRelations = relations(
   gamesToPlatforms,
@@ -48,5 +48,7 @@ export const gamesToPlatformsRelations = relations(
       fields: [gamesToPlatforms.platformId],
       references: [platforms.platformId],
     }),
-  }),
-)
+  })
+);
+
+export type Platform = typeof platforms.$inferSelect;

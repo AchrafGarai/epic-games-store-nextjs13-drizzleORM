@@ -1,14 +1,32 @@
 import { Game } from "@/db/game/schema";
 import React from "react";
 import GameCard from "./GameCard";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-type Props = {
+const gridVariants = cva("grid gap-4", {
+  variants: {
+    variant: {
+      default: "grid-cols-4 ",
+      reduced: "grid-cols-3",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+export type GridProps = VariantProps<typeof gridVariants>;
+
+interface Props extends GridProps {
   games: Game[];
-};
-function GamesGrid({ games }: Props) {
+  className?: string;
+}
+
+function GamesGrid({ games, variant, className }: Props) {
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 w-full">
+      <div className={cn(gridVariants({ variant, className }))}>
         {games.map((game) => (
           <GameCard game={game} key={game.id} />
         ))}
