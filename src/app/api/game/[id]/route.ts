@@ -21,8 +21,16 @@ export async function GET(
     where: eq(games.id, id),
     with: {
       media: true,
-      categories: true,
-      platforms: true,
+      categories: {
+        with: {
+          category: true,
+        },
+      },
+      platforms: {
+        with: {
+          platform: true,
+        },
+      },
     },
   });
 

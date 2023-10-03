@@ -15,8 +15,12 @@ async function GameDetailsPage({ params }: { params: { id: string } }) {
   type Response = {
     data: Game & {
       media: Media[];
-      platforms: Platform[];
-      categories: Category[];
+      platforms: {
+        platform: Platform;
+      }[];
+      categories: {
+        category: Category;
+      }[];
     };
   };
 
@@ -31,7 +35,9 @@ async function GameDetailsPage({ params }: { params: { id: string } }) {
     game && (
       <div className="flex gap-8">
         <div className="flex-grow ">
-          <p className=" text-2xl font-medium my-5">{game.title}</p>
+          <div>
+            <p className=" text-2xl font-medium my-5">{game.title}</p>
+          </div>
           {media && <GameMedia media={game.media} />}
         </div>
         <div className=" p-8 py-10 w-90 bg-neutral-900 rounded-xl">

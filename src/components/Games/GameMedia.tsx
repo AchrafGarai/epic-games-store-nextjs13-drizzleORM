@@ -12,30 +12,36 @@ function GameMedia({ media, activeMedia }: Props) {
   const currentScreenShot = activeMedia ? media[activeMedia] : media[0];
   return (
     <>
-      <Image
-        src={currentScreenShot.mediaUrl}
-        width={1200}
-        height={675}
-        alt=""
-      />
-      <h4 className=" text-lg mb-4 font-medium mt-6 ">Screenshots</h4>
-      <ScrollArea className="rounded-lg border mt-4 bg-neutral-900">
-        <div className="p-4">
-          <div className="flex gap-2">
-            {media.map((media) => (
-              <>
-                <Image
-                  src={media.mediaUrl}
-                  width={200}
-                  height={75}
-                  alt=""
-                  key={media.id}
-                />
-              </>
-            ))}
-          </div>
-        </div>
-      </ScrollArea>
+      {currentScreenShot && (
+        <Image
+          src={currentScreenShot.mediaUrl}
+          width={1200}
+          height={675}
+          alt=""
+        />
+      )}
+      {media.length > 1 && (
+        <>
+          <h4 className=" text-lg mb-4 font-medium mt-6 ">Screenshots</h4>
+          <ScrollArea className="rounded-lg border mt-4 bg-neutral-900">
+            <div className="p-4">
+              <div className="flex gap-2">
+                {media.map((media) => (
+                  <>
+                    <Image
+                      src={media.mediaUrl}
+                      width={200}
+                      height={75}
+                      alt=""
+                      key={media.id}
+                    />
+                  </>
+                ))}
+              </div>
+            </div>
+          </ScrollArea>
+        </>
+      )}
     </>
   );
 }
