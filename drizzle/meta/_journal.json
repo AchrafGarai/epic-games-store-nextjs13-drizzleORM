@@ -162,6 +162,13 @@
       "when": 1696330219185,
       "tag": "0022_hesitant_power_man",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "5",
+      "when": 1696425726717,
+      "tag": "0023_flaky_pyro",
+      "breakpoints": true
     }
   ]
 }

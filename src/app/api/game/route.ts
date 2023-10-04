@@ -93,4 +93,4 @@ export async function POST(request: Request) {
   return NextResponse.json({ result, imgResult, default_price });
 }
 
-export const revalidate = 1;
+export const revalidate = 1; // revalidate at most every hour

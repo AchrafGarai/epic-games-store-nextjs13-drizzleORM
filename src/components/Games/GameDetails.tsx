@@ -27,7 +27,7 @@ export default function GameDetails({ game }: Props) {
   const platforms = getPlatformNames(game.platforms) || "TBA";
 
   return (
-    <div className="flex flex-col gap-2 my-3 ">
+    <div className="flex flex-col gap-2 my-3 w-72 ">
       <p className=" text-2xl font-medium mb">{game.title}</p>
       <p className=" text-neutral-300 text-md mb-3">$ {game.price}</p>
       <Button className=" uppercase">Buy</Button>

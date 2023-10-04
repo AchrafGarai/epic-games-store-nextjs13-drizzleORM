@@ -1,6 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import React from "react";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 
 function Navbar() {
   return (

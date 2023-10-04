@@ -22,6 +22,7 @@ export const games = pgTable("games", {
   releasedAt: date("released_at", { mode: "date" }),
   price: numeric("price"),
   stripeId: varchar("stripe_id", { length: 256 }),
+  gameDescription: varchar("game_description", { length: 256 }).default("TBA"),
 });
 
 export const gamesRelations = relations(games, ({ many }) => ({

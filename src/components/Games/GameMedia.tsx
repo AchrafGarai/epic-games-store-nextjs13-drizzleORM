@@ -72,7 +72,7 @@ function GameMedia({ media, activeMedia, gameId }: Props) {
       )}
       {media.length > 1 && (
         <>
-          <h4 className=" text-lg mb-4 font-medium mt-6 ">Screenshots</h4>
+          <h4 className=" text-lg mb-4 font-medium mt-12 ">Screenshots</h4>
           <ScrollArea className="rounded-lg border mt-4 bg-neutral-900">
             <div className="p-4">
               <div className="flex gap-2">
