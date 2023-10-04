@@ -18,9 +18,6 @@ export default async function Home({
 
   const page = Number(searchParams?.page) || 1;
   const featuredId = Number(searchParams?.featured) || undefined;
-  console.log({
-    page: page,
-  });
   return (
     <main>
       <>

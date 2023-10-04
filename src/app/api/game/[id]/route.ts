@@ -10,13 +10,6 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const id = Number(params.id); // 'a', 'b', or 'c'
-  // const res = await db
-  //   .select()
-  //   .from(games)
-  //   .where(eq(games.id, id))
-  //   .leftJoin(media, eq(media.id, id))
-  //   .leftJoin(categories, eq(categories.id, id))
-  //   .leftJoin(platforms, eq(platforms.platformId, id));
   const data = await db.query.games.findFirst({
     where: eq(games.id, id),
     with: {

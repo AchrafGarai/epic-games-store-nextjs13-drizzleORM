@@ -5,7 +5,7 @@ import React from "react";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="flex flex-row gap-4 bg-epic-500">
+      <div className="relative flex flex-row gap-4 bg-epic-500">
         <SideBar />
         <div className="p-16 py-8 flex-grow">
           <Navbar />
