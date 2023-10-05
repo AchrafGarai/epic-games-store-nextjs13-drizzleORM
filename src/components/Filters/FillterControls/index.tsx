@@ -1,14 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Accordion } from "@/components/ui/accordion";
 import { Category } from "@/db/game/schema";
 import CategoryFilters from "@/components/Filters/CategoryFilter";
 import PriceFilters from "@/components/Filters/PriceFilters";
 import { Platform } from "@/db/platforms/schema";
-import { useFilters } from "@/utils/hooks/Filters";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createQueryString } from "@/utils/filters";
-import SearchFilter from "@/components/Filters/SearchFilter";
+import { SearchBar } from "@/components/Navigation";
 
 type Props = {
   categories: {
@@ -26,14 +25,18 @@ function FilterControls({ categories, platforms }: Props) {
   const handleFilterUpdate = (key: string, value: string) => {
     filters[key] = value;
     const query = createQueryString(filters);
-    router.push(`/search${query}`);
+    router.replace(`/search${query}`);
   };
 
   return (
     <Accordion type="single" collapsible className="w-full">
-      <SearchFilter
-      // onSearchChange={(key, value) => handleFilterUpdate(key, value)}
-      />
+      <div className="flex gap-2 flex-col">
+        <span>Search</span>
+        <SearchBar
+          className=" bg-neutral-800 border-neutral-700 mb-4"
+          onSearchChange={(key, value) => handleFilterUpdate(key, value)}
+        />
+      </div>
       <CategoryFilters
         categories={categories.data}
         title="Categories"

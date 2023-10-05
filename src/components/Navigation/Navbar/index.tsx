@@ -1,11 +1,13 @@
 import { UserButton } from "@clerk/nextjs";
 import React from "react";
-import { Input } from "../../ui/input";
+
+import { SearchBar } from "..";
 
 function Navbar() {
   return (
     <div className="flex justify-between items-center mb-8">
-      <Input className=" max-w-xs" placeholder="Search the library " />
+      {/* <Input className=" max-w-xs" placeholder="Search the library " /> */}
+      <SearchBar />
       <UserButton
         afterSignOutUrl="/"
         userProfileMode="navigation"
