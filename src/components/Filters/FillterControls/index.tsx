@@ -19,6 +19,9 @@ type Props = {
 };
 
 function FilterControls({ categories, platforms }: Props) {
+  const q = useSearchParams();
+  const searchDefaultValue = q.get("q") || "";
+
   const router = useRouter();
   let filters: { [key: string]: string | undefined } = {};
 
@@ -30,13 +33,6 @@ function FilterControls({ categories, platforms }: Props) {
 
   return (
     <Accordion type="single" collapsible className="w-full">
-      <div className="flex gap-2 flex-col">
-        <span>Search</span>
-        <SearchBar
-          className=" bg-neutral-800 border-neutral-700 mb-4"
-          onSearchChange={(key, value) => handleFilterUpdate(key, value)}
-        />
-      </div>
       <CategoryFilters
         categories={categories.data}
         title="Categories"

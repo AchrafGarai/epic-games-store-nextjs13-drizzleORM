@@ -8,13 +8,13 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 type Props = {
   className?: string;
-  onSearchChange?: (key: string, value: string) => void;
+  // onSearchChange?: (key: string, value: string) => void;
+  defaultValue?: string;
 };
 
-function SearchBar({ onSearchChange, className }: Props) {
+function SearchBar({ className, defaultValue }: Props) {
   const router = useRouter();
-  const q = useSearchParams();
-  const defaultValue = q.get("q") || "";
+
   const [searchValue, setSearchValue] = useState<string>("");
   const [query] = useDebounce(searchValue, 300);
 
@@ -23,7 +23,7 @@ function SearchBar({ onSearchChange, className }: Props) {
   }, [query, router]);
 
   const handleSearch = (value: string) => {
-    onSearchChange ? onSearchChange("q", value) : setSearchValue(value);
+    setSearchValue(value);
   };
   return (
     <>
