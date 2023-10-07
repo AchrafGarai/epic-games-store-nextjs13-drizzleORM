@@ -13,7 +13,7 @@ import { users } from "../user/schema";
 import { games } from "../game/schema";
 
 export const platforms = pgTable("platforms", {
-  platformId: serial("platform_id").primaryKey().notNull(),
+  id: serial("platform_id").primaryKey().notNull(),
   name: varchar("name", { length: 256 }).notNull(),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
 });
@@ -28,12 +28,12 @@ export const gamesToPlatforms = pgTable(
     gameId: integer("game_id")
       .notNull()
       .references(() => games.id),
-    platformId: integer("platform")
+    id: integer("platform")
       .notNull()
-      .references(() => platforms.platformId),
+      .references(() => platforms.id),
   },
   (t) => ({
-    pk: primaryKey(t.gameId, t.platformId),
+    pk: primaryKey(t.gameId, t.id),
   })
 );
 
@@ -45,8 +45,8 @@ export const gamesToPlatformsRelations = relations(
       references: [games.id],
     }),
     platform: one(platforms, {
-      fields: [gamesToPlatforms.platformId],
-      references: [platforms.platformId],
+      fields: [gamesToPlatforms.id],
+      references: [platforms.id],
     }),
   })
 );

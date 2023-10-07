@@ -5,9 +5,10 @@ import Link from "next/link";
 type Props = {
   page: number;
   searchParams?: { [key: string]: string | string[] | undefined };
+  hasNextPage: boolean;
 };
 
-function Pagination({ page, searchParams }: Props) {
+function Pagination({ page, searchParams, hasNextPage }: Props) {
   const nextPage = constructURL(searchParams, {
     key: "page",
     value: `${page + 1}`,
@@ -19,18 +20,26 @@ function Pagination({ page, searchParams }: Props) {
 
   return (
     <div className="flex gap-2 my-16">
-      <Link
-        className={buttonVariants({ variant: "secondary" })}
-        href={previousPage}
-      >
-        Previous
-      </Link>
-      <Link
-        className={buttonVariants({ variant: "secondary" })}
-        href={nextPage}
-      >
-        Next
-      </Link>
+      {page > 1 && (
+        <div className="flex-grow flex">
+          <Link
+            className={buttonVariants({ variant: "secondary" })}
+            href={previousPage}
+          >
+            Previous
+          </Link>
+        </div>
+      )}
+      {hasNextPage && (
+        <div className="flex-grow flex justify-end">
+          <Link
+            className={buttonVariants({ variant: "secondary" })}
+            href={nextPage}
+          >
+            Next
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,16 +1,19 @@
 import React from "react";
-import { Game } from "@/db/game/schema";
-import Link from "next/link";
-import Image from "next/image";
-import { buttonVariants } from "@/components/ui/button";
 import FeaturedBanner from "./FeaturedBanner";
 import FeaturedThumbnail from "./FeaturedThumbnail";
+import { useGames } from "@/lib/games";
+import { Game } from "@/db/game/schema";
 type Props = {
-  games: Game[];
+  // games: Game[];
   featuredGame?: number;
+  page: number;
 };
 
-function FeaturedGames({ games, featuredGame }: Props) {
+async function FeaturedGames({ featuredGame, page }: Props) {
+  const { data } = await useGames<Game>(1, {
+    limit: "4",
+  });
+  const games = data;
   const featured = featuredGame
     ? games.find((game) => game.id === featuredGame)
     : games[0];
@@ -22,7 +25,7 @@ function FeaturedGames({ games, featuredGame }: Props) {
         {games.map((game) => (
           <li key={game.id}>
             <FeaturedThumbnail
-              featuredId={1}
+              page={page}
               game={game}
               variant={game.id === featured?.id ? "selected" : "default"}
             />

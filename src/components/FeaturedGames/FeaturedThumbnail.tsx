@@ -19,13 +19,17 @@ const Variants = cva("flex gap-2 mb-4 p-3 rounded-xl  transition-all", {
 type CardBaseProps = VariantProps<typeof Variants>;
 type Props = CardBaseProps & {
   game: Game;
-  featuredId: number;
+  page: number;
 };
 
-function FeaturedThumbnail({ game, featuredId, variant }: Props) {
+function FeaturedThumbnail({ game, variant, page }: Props) {
+  const pageQuery = `&page=${page}`;
   const coverUrl = game.coverImageUrl ? game.coverImageUrl : "";
   return (
-    <Link href={`/?featured=${game.id}`} className={cn(Variants({ variant }))}>
+    <Link
+      href={`/?featured=${game.id}${pageQuery}`}
+      className={cn(Variants({ variant }))}
+    >
       <Image
         src={coverUrl}
         height={80}

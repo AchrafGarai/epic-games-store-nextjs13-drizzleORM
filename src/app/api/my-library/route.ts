@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
   const limit = Number(searchParams.get("limit"));
-  const offset = Number(searchParams.get("offset"));
+  const offset = Number(searchParams.get("offset")) || null;
   try {
     if (userId) {
       const user = await db.query.users.findFirst({
@@ -30,9 +30,8 @@ export async function GET(request: Request) {
             game: true,
           },
           limit: limit,
-          offset: offset,
+          offset: offset ? offset : undefined,
         });
-
         const data = response.map((item: any) => {
           const { game, ...rest } = item;
           return { ...game, ...rest };
@@ -45,3 +44,5 @@ export async function GET(request: Request) {
     return NextResponse.json({ e });
   }
 }
+
+export const revalidate = 1;

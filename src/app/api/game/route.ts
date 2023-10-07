@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   // Load queries from URL
   const { searchParams } = new URL(request.url);
   const param = searchParams.get("q");
-  const paramCategories = searchParams.get("categories")?.split("|") || null;
+  const paramCategories = searchParams.get("categories")?.split("|");
   const paramPlatforms = searchParams.get("platforms")?.split("|") || null;
 
   const limit = Number(searchParams.get("limit"));
@@ -20,12 +20,20 @@ export async function GET(request: Request) {
 
   // Create search conditions
   const searchCondition = param ? ilike(games.title, `%${param}%`) : undefined;
+
   const categoriesConditions = paramCategories
     ? inArray(categories.name, paramCategories)
     : undefined;
-  const platfromsConditions = paramPlatforms
+
+  const platformsConditions = paramPlatforms
     ? inArray(platforms.name, paramPlatforms)
     : undefined;
+
+  const conditions = [
+    searchCondition,
+    platformsConditions,
+    categoriesConditions,
+  ].filter((arg) => arg !== undefined);
 
   const query = db.select().from(games);
 
@@ -34,10 +42,10 @@ export async function GET(request: Request) {
   }
 
   if (paramPlatforms) {
-    query.innerJoin(platforms, eq(games.id, platforms.platformId));
+    query.innerJoin(platforms, eq(games.id, platforms.id));
   }
   query
-    .where(and(categoriesConditions, searchCondition, platfromsConditions))
+    .where(and(...conditions))
     .limit(limit)
     .offset(offset);
 
@@ -93,4 +101,4 @@ export async function POST(request: Request) {
   return NextResponse.json({ result, imgResult, default_price });
 }
 
-export const revalidate = 1; // revalidate at most every hour
+// export const revalidate = 1; // revalidate at most every hour

@@ -17,7 +17,7 @@ export function createQueryString(params: {
 }): string {
   const queryString = Object.entries(params)
     .map(([key, value]) => {
-      if (value !== undefined) {
+      if (value !== undefined && value !== "") {
         if (Array.isArray(value)) {
           return value
             .map((v) => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`)

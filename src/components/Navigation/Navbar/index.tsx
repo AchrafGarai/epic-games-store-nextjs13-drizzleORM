@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <div className="flex justify-between items-center mb-8">
       {/* <Input className=" max-w-xs" placeholder="Search the library " /> */}
-      <SearchBar />
+      <SearchBar basePath="search" />
       <UserButton
         afterSignOutUrl="/"
         userProfileMode="navigation"

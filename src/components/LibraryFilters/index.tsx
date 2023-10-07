@@ -2,13 +2,17 @@ import React from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import FilterControls from "./FillterControls";
 import { useCategories } from "@/lib/categories";
 import { usePlatfroms } from "@/lib/platfroms";
+import LibraryFilterControls from "./LibraryFilterControls";
 
 type SeachParams = { [key: string]: string | string[] | undefined };
 
-async function GameFilters({ searchParams }: { searchParams?: SeachParams }) {
+async function LibraryFilters({
+  searchParams,
+}: {
+  searchParams?: SeachParams;
+}) {
   const categories = await useCategories();
   const platforms = await usePlatfroms();
   return (
@@ -19,14 +23,18 @@ async function GameFilters({ searchParams }: { searchParams?: SeachParams }) {
             <p className=" font-semibold ">Filters</p>
             <Link
               className={buttonVariants({ variant: "secondary" })}
-              href={"/search"}
+              href={"/library"}
             >
               Reset
             </Link>
           </div>
           <Separator />
           <div className="px-8 py-6">
-            <FilterControls categories={categories} platforms={platforms} />
+            {/* <FilterControls categories={categories} platforms={platforms} /> */}
+            <LibraryFilterControls
+              categories={categories.data}
+              platforms={platforms.data}
+            />
           </div>
         </div>
       </div>
@@ -34,4 +42,4 @@ async function GameFilters({ searchParams }: { searchParams?: SeachParams }) {
   );
 }
 
-export default GameFilters;
+export default LibraryFilters;

@@ -1,8 +1,11 @@
 import GamesGrid from "@/components/Games/GamesGrid";
-import { Category, Game } from "@/db/game/schema";
+import { Category, Game, games } from "@/db/game/schema";
 import React from "react";
 import { constructURL } from "@/utils/pagination";
 import { Platform } from "@/db/platforms/schema";
+import { useGames } from "@/lib/games";
+import Pagination from "@/components/Pagination";
+import FeaturedGames from "@/components/FeaturedGames";
 type Props = {
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -10,19 +13,22 @@ type Props = {
 
 async function SearchPage({ params, searchParams }: Props) {
   const filters = constructURL(searchParams);
-  let { data } = (await fetch(
-    `http://localhost:3000/api/game${filters}&limit=4`
-  )
-    .then((res) => res.json())
-    .catch((e) => console.log(e))) as any;
+  const page = Number(searchParams?.page) || 1;
+  const featuredId = Number(searchParams?.featured) || undefined;
 
-  data[0] &&
-    data[0].games &&
-    (data = data.map((game: { games: Game }) => game.games));
+  type res = { games: Game };
+  const { data, hasNextPage } = await useGames<any>(page, searchParams);
+  let flattenedGames = data;
+  if (data[0] && data[0].games) {
+    flattenedGames = data.flatMap((obj) => obj.games);
+  }
 
   return (
     <div className="flex-grow">
-      <GamesGrid games={data} variant={"reduced"} />
+      {flattenedGames && (
+        <GamesGrid games={flattenedGames} variant={"reduced"} />
+      )}
+      <Pagination hasNextPage={hasNextPage} page={page} />
     </div>
   );
 }
