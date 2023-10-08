@@ -6,7 +6,6 @@ import { SearchBar } from "..";
 function Navbar() {
   return (
     <div className="flex justify-between items-center mb-8">
-      {/* <Input className=" max-w-xs" placeholder="Search the library " /> */}
       <SearchBar basePath="search" />
       <UserButton
         afterSignOutUrl="/"
