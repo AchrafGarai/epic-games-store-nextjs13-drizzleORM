@@ -27,30 +27,30 @@ const links = [
 ];
 function SideBar() {
   return (
-    <div className="min-h-screen relative">
-      <div className="sticky top-0 w-[260px] bg-epic-600 p-4">
-        <div className="p-4 flex items-center justify-center">
-          <Link href={"/"}>
-            <Image
-              src={"/epic-games-logo-2.png"}
-              alt="epic games logo"
-              width={45}
-              height={54}
-            />
-          </Link>
-        </div>
-        <div className="flex flex-col mt-6 gap-2 ">
-          {links.map((link) => (
-            <NavLink
-              label={link.label}
-              icon={link.svg}
-              slug={link.slug}
-              key={link.slug}
-            />
-          ))}
-        </div>
+    // <div className="min-h-screen relative">
+    <div className="sticky top-0 w-full bg-epic-600 p-4 lg:w-[260px]">
+      <div className="p-4 flex items-center justify-center">
+        <Link href={"/"}>
+          <Image
+            src={"/epic-games-logo-2.png"}
+            alt="epic games logo"
+            width={45}
+            height={54}
+          />
+        </Link>
+      </div>
+      <div className="flex flex-col mt-6 gap-2 ">
+        {links.map((link) => (
+          <NavLink
+            label={link.label}
+            icon={link.svg}
+            slug={link.slug}
+            key={link.slug}
+          />
+        ))}
       </div>
     </div>
+    // </div>
   );
 }
 

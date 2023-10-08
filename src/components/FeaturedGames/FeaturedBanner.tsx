@@ -7,7 +7,7 @@ import { buttonVariants } from "@/components/ui/button";
 function FeaturedBanner({ game }: { game: Game | undefined }) {
   return (
     <div className="col-span-6 flex-grow">
-      <div className="relative h-[540px] rounded-3xl overflow-hidden animate-fade-in transition-all">
+      <div className="relative h-[540px] rounded-3xl overflow-hidden animate-fade-in transition-all ">
         <div className="absolute z-30 p-12 bottom-0 w-full flex flex-col gap-2 items-start max-w-md">
           <h1 className=" text-3xl font-medium">{game?.title}</h1>
           <p className=" text-xl font-medium">${game?.price}</p>
@@ -21,12 +21,12 @@ function FeaturedBanner({ game }: { game: Game | undefined }) {
             Buy now
           </Link>
         </div>
-        <div className=" absolute w-1/4 h-full bg-gradient-to-r from-black  opacity-60 z-20"></div>
+        <div className=" absolute w-1/2 h-full bg-gradient-to-r from-black  opacity-70 z-20 "></div>
         <Image
           src={game?.bannerImageUrl ? game?.bannerImageUrl : ""}
           alt=""
           fill
-          className="w-full absolute z-10"
+          className="w-full h-full absolute z-10 object-cover"
         />
       </div>
     </div>
