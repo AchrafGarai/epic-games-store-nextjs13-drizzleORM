@@ -1,7 +1,6 @@
 import { Game } from "@/db/game/schema";
 import { createQueryString } from "@/utils/filters";
 import { auth } from "@clerk/nextjs/server";
-const { getToken } = auth();
 
 export const useGames = async <T = Game>(
   page: number,

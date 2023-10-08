@@ -8,9 +8,6 @@ import {
   DashboardIcon,
 } from "@radix-ui/react-icons";
 
-const home = <HomeIcon width={24} height={24} />;
-const magnifyingGlass = <MagnifyingGlassIcon width={24} height={24} />;
-const library = <DashboardIcon width={24} height={24} />;
 const links = [
   {
     label: "Home",
@@ -42,7 +39,7 @@ function SideBar() {
             />
           </Link>
         </div>
-        <div className="flex flex-col mt-6">
+        <div className="flex flex-col mt-6 gap-2 ">
           {links.map((link) => (
             <NavLink
               label={link.label}

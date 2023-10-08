@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import GameFilters from "@/components/Filters";
-import LibraryFilters from "@/components/LibraryFilters";
 
 type Props = {
   params: { slug: string };
@@ -8,13 +7,8 @@ type Props = {
   children: ReactNode;
 };
 
-function Layout({ children, params, searchParams }: Props) {
-  return (
-    <div className=" flex gap-4">
-      {children}
-      <LibraryFilters />
-    </div>
-  );
+function Layout({ children }: Props) {
+  return <>{children}</>;
 }
 
 export default Layout;

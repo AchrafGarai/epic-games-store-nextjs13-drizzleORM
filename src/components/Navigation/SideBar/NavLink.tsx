@@ -16,8 +16,8 @@ function NavLink({ icon, label, slug }: Props) {
       href={slug}
       className={`${
         pathname === slug
-          ? " flex items-center gap-4 p-4 text-base font-medium text-neutral-100 "
-          : " flex items-center gap-4 p-4 text-base font-medium text-neutral-500"
+          ? " flex items-center gap-4 p-4 text-base font-medium text-neutral-100 bg-neutral-800 rounded-xl "
+          : " flex items-center gap-4 p-4 text-base font-medium text-neutral-500 "
       }`}
     >
       {icon} {label}

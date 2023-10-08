@@ -1,30 +1,27 @@
 import { GamesGrid } from "@/components/Games";
-import { Game } from "@/db/game/schema";
-import { auth } from "@clerk/nextjs/server";
+import { useGames } from "@/lib/games";
 import React from "react";
 
 type Props = {
   relatedCategories?: string;
+  searchParams?: { [key: string]: string | string[] | undefined };
+  gameId: number;
 };
-async function SimilarGames({ relatedCategories }: Props) {
-  const { getToken } = auth();
-  const similarGames = (await fetch(
-    `http://localhost:3000/api/game?categories=${relatedCategories}`,
-    {
-      headers: { Authorization: `Bearer ${await getToken()}` },
-    }
-  )
-    .then((res) => res.json())
-    .catch((e) => console.log(e))) as { data: { games: Game }[] };
-
-  const transformedData = similarGames.data.map((obj) => ({
-    ...obj.games, // Copy the existing properties
-  }));
+async function SimilarGames({ relatedCategories, gameId }: Props) {
+  const page = 1;
+  const categoriesQuery = {
+    categories: relatedCategories,
+  };
+  const similarGames = await useGames(
+    page,
+    categoriesQuery,
+    `game/${gameId}/similar-games`
+  );
 
   return (
-    <>
-      <GamesGrid games={transformedData} />
-    </>
+    <div className="mb-12">
+      <GamesGrid games={similarGames.data} />
+    </div>
   );
 }
 

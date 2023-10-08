@@ -38,10 +38,7 @@ async function GameDetailsPage({ params, searchParams }: Props) {
     .catch((e) => console.log(e))) as Response;
   const game = data;
 
-  const relatedCategories = getCategoryNames(game.categories).replace(
-    /\|/g,
-    ","
-  );
+  const relatedCategories = getCategoryNames(game.categories);
 
   return (
     game && (
@@ -56,8 +53,8 @@ async function GameDetailsPage({ params, searchParams }: Props) {
                 activeMedia={activeImage}
               />
             )}
-            <div>
-              <h4 className=" text-lg mb-4 font-medium mt-12 ">Description</h4>
+            <div className=" my-12">
+              <h4 className=" text-lg mb-4 font-medium ">Description</h4>
               <p className=" text-neutral-400">{game.gameDescription}</p>
             </div>
           </div>
@@ -77,10 +74,12 @@ async function GameDetailsPage({ params, searchParams }: Props) {
         <>
           {relatedCategories && relatedCategories !== "" && (
             <>
-              <h4 className=" text-lg mb-4 font-medium mt-12 ">
-                Similar Games
-              </h4>
-              <SimilarGames relatedCategories={relatedCategories} />
+              <h4 className=" text-lg mb-4 font-medium">Similar Games</h4>
+              <SimilarGames
+                gameId={game.id}
+                relatedCategories={relatedCategories}
+                searchParams={searchParams}
+              />
             </>
           )}
         </>
