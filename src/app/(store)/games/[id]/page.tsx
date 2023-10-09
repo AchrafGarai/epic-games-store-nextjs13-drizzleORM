@@ -42,7 +42,7 @@ async function GameDetailsPage({ params, searchParams }: Props) {
 
   return (
     game && (
-      <>
+      <div className=" pb-24">
         <div className="flex gap-8">
           <div className="flex-grow ">
             <p className=" text-4xl font-medium my-5">{game.title}</p>
@@ -58,18 +58,8 @@ async function GameDetailsPage({ params, searchParams }: Props) {
               <p className=" text-neutral-400">{game.gameDescription}</p>
             </div>
           </div>
-          <div className=" p-8 py-10 w-90 bg-neutral-900 rounded-xl">
-            {game.coverImageUrl && (
-              <Image
-                src={game.coverImageUrl}
-                height={200}
-                width={300}
-                alt={game.title}
-                className=" mb-8"
-              />
-            )}
-            <GameDetails game={game} />
-          </div>
+          <GameDetails game={game} />
+          {/* </div> */}
         </div>
         <>
           {relatedCategories && relatedCategories !== "" && (
@@ -83,7 +73,7 @@ async function GameDetailsPage({ params, searchParams }: Props) {
             </>
           )}
         </>
-      </>
+      </div>
     )
   );
 }

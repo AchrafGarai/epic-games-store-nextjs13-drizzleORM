@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 const gridVariants = cva("grid gap-4", {
   variants: {
     variant: {
-      default: "grid-cols-4 ",
-      reduced: "grid-cols-3",
+      default: "grid-cols-3 lg:grid-cols-4 ",
+      reduced: "grid-cols-2 lg:grid-cols-3",
     },
   },
   defaultVariants: {

@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Epic Games Store",
-  description: "Demo Store app made with NextJS ",
+  description: "Demo Store app made with NextJS",
 };
 const clerkAppearance = {
   baseTheme: dark,

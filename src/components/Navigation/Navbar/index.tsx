@@ -18,7 +18,7 @@ function Navbar() {
     <div className="flex justify-between items-center mb-8">
       <div className="flex gap-4">
         {/* Mobile Navigation trigger */}
-        <div className="block lg:hidden">
+        <div className="block xl:hidden">
           <Sheet>
             <SheetTrigger className={buttonVariants({ variant: "ghost" })}>
               <HamburgerMenuIcon width={24} height={24} />
