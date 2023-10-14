@@ -6,9 +6,9 @@ import { buttonVariants } from "@/components/ui/button";
 
 function FeaturedBanner({ game }: { game: Game | undefined }) {
   return (
-    <div className="col-span-6 flex-grow">
-      <div className="relative h-[540px] rounded-3xl overflow-hidden animate-fade-in transition-all ">
-        <div className="absolute z-30 p-12 bottom-0 w-full flex flex-col gap-2 items-start max-w-md">
+    <div className="col-span-8 flex-grow md:col-span-6">
+      <div className="relative  rounded-3xl overflow-hidden animate-fade-in transition-all h-[360px] md:h-[540px] ">
+        <div className="absolute z-30 p-6 bottom-0 w-full flex flex-col gap-2 items-start max-w-md md:12">
           <h1 className=" text-3xl font-medium">{game?.title}</h1>
           <p className=" text-xl font-medium">${game?.price}</p>
           <p className="text-neutral-300 text-ellipsis overflow-hidden max-h-12  mb-4">

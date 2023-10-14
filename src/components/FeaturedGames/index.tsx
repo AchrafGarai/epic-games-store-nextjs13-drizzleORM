@@ -19,9 +19,9 @@ async function FeaturedGames({ featuredGame, page }: Props) {
     : games[0];
 
   return (
-    <div className="grid grid-cols-8 gap-8 min-h-[360px]">
+    <div className="grid grid-cols-8 gap-8 ">
       <FeaturedBanner game={featured} />
-      <ul className=" col-span-2">
+      <ul className=" col-span-8 md:col-span-2">
         {games.map((game) => (
           <li key={game.id}>
             <FeaturedThumbnail
