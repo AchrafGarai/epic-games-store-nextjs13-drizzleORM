@@ -78,9 +78,13 @@ export async function POST(request: Request) {
     })
     .returning({ gameId: games.id, title: games.title })
 
+  // Create an Image
+  const gameBanner = coverImageUrl ? coverImageUrl : ''
+
   // Create the stripe product
   const { default_price } = (await stripe.products.create({
     name: title,
+    images: [gameBanner],
     default_price_data: {
       currency: 'usd',
       unit_amount: Number(price) * 100,
