@@ -19,7 +19,7 @@ function Navbar() {
       <div className="flex gap-4">
         {/* Mobile Navigation trigger */}
         <div className="block xl:hidden">
-          <Sheet>
+          <Sheet defaultOpen={false}>
             <SheetTrigger className={buttonVariants({ variant: "ghost" })}>
               <HamburgerMenuIcon width={24} height={24} />
             </SheetTrigger>
