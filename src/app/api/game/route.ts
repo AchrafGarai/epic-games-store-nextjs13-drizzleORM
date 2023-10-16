@@ -67,7 +67,15 @@ export async function POST(request: Request) {
     const { errors } = r.error
     return NextResponse.json(errors, { status: 400 })
   }
-  const { title, screenshots, releaseDate, price, coverImageUrl } = req
+  const {
+    title,
+    screenshots,
+    releaseDate,
+    price,
+    coverImageUrl,
+    bannerImageUrl,
+    gameDescription,
+  } = req
   const result = await db
     .insert(games)
     .values({
@@ -75,6 +83,8 @@ export async function POST(request: Request) {
       releasedAt: new Date(releaseDate),
       price,
       coverImageUrl,
+      bannerImageUrl,
+      gameDescription,
     })
     .returning({ gameId: games.id, title: games.title })
 

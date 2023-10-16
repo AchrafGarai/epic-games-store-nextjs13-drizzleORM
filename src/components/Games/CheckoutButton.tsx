@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import { Game } from '@/db/game/schema'
 import { useRouter } from 'next/navigation'
 
@@ -18,6 +19,7 @@ function CheckoutButton({ game }: { game: Game }) {
 
       var raw = JSON.stringify({
         stripeId: game.stripeId,
+        gameId: game.id,
       })
 
       var requestOptions = {
@@ -33,17 +35,28 @@ function CheckoutButton({ game }: { game: Game }) {
         .catch((e) => console.log(e))
 
       // TODO Redirect User to Checkout
-      console.log(checkoutUrl)
       router.push(checkoutUrl)
       // Stop  Loading
     } catch (e) {
       console.log(e)
+      setIsLoading(false)
     }
   }
 
   return (
-    <Button className="uppercase" onClick={hadnleCheckout}>
-      Buy
+    <Button className="gap- mb-4" onClick={hadnleCheckout} disabled={isLoading}>
+      {isLoading ? (
+        <>
+          <ReloadIcon
+            width={20}
+            height={20}
+            className="mr-2 h-4 w-4 animate-spin"
+          />
+          Loading...
+        </>
+      ) : (
+        <>PURCHASE</>
+      )}
     </Button>
   )
 }

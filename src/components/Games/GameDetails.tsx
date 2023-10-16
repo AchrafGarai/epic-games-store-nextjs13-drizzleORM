@@ -68,7 +68,7 @@ export default function GameDetails({ game }: Props) {
           <p className=" text-lg font-medium mb">{game.title}</p>
           <p className=" text-neutral-500 text-md">$ {game.price}</p>
         </div>
-        <Button className=" uppercase">Buy</Button>
+        <CheckoutButton game={game} />
       </div>
     </>
   )

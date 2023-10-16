@@ -1,15 +1,13 @@
-import { NextResponse } from "next/server";
-import { db } from "@/db";
-import { games, categories } from "@/db/game/schema";
-import { platforms } from "@/db/platforms/schema";
-import { media } from "@/db/media/schema";
-import { eq } from "drizzle-orm";
+import { NextResponse } from 'next/server'
+import { db } from '@/db'
+import { games, categories } from '@/db/game/schema'
+import { eq } from 'drizzle-orm'
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
-  const id = Number(params.id); // 'a', 'b', or 'c'
+  const id = Number(params.id) // 'a', 'b', or 'c'
   const data = await db.query.games.findFirst({
     where: eq(games.id, id),
     with: {
@@ -25,9 +23,9 @@ export async function GET(
         },
       },
     },
-  });
+  })
 
-  return NextResponse.json({ data });
+  return NextResponse.json({ data })
 }
 
-// export const revalidate = 1; // revalidate at most every hour
+// export const revalidate = 1 // revalidate at most every hour
