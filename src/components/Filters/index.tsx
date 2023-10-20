@@ -1,17 +1,15 @@
-import React from 'react'
-import { buttonVariants } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import Link from 'next/link'
-import FilterControls from './FillterControls'
-import { useCategories } from '@/lib/categories'
-import { usePlatfroms } from '@/lib/platfroms'
-import { cn } from '@/lib/utils'
+import React from "react";
+import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import FilterControls from "./FillterControls";
+import { useCategories } from "@/lib/categories";
+import { usePlatfroms } from "@/lib/platfroms";
+import { cn } from "@/lib/utils";
 
-type SeachParams = { [key: string]: string | string[] | undefined }
-
-async function GameFilters({ searchParams }: { searchParams?: SeachParams }) {
-  const categories = await useCategories()
-  const platforms = await usePlatfroms()
+async function GameFilters() {
+  const categories = await useCategories();
+  const platforms = await usePlatfroms();
   return (
     <>
       <div className="h-full">
@@ -20,10 +18,10 @@ async function GameFilters({ searchParams }: { searchParams?: SeachParams }) {
             <p className=" font-semibold ">Filters</p>
             <Link
               className={cn(
-                'font-bold uppercase text-blue-400 text-sm',
-                buttonVariants({ variant: 'ghost', size: 'sm' }),
+                "font-bold uppercase text-blue-400 text-sm",
+                buttonVariants({ variant: "ghost", size: "sm" })
               )}
-              href={'/search'}
+              href={"/search"}
             >
               Reset
             </Link>
@@ -35,7 +33,7 @@ async function GameFilters({ searchParams }: { searchParams?: SeachParams }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default GameFilters
+export default GameFilters;
