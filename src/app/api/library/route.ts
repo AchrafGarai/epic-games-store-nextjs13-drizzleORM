@@ -58,7 +58,11 @@ export async function GET(request: Request) {
         .offset(offset);
       const data = res.flatMap((obj: any) => obj.games);
       return NextResponse.json({ data });
+    } else {
+      return NextResponse.json({ error: "unable to load library" });
     }
+  } else {
+    return NextResponse.json({ error: "unable to load library" });
   }
 }
 

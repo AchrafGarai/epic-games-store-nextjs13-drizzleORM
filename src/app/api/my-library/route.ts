@@ -38,7 +38,11 @@ export async function GET(request: Request) {
         });
 
         return NextResponse.json({ data });
+      } else {
+        return NextResponse.json({ error: "unable to load library" });
       }
+    } else {
+      return NextResponse.json({ error: "unable to load library" });
     }
   } catch (e) {
     return NextResponse.json({ e });
