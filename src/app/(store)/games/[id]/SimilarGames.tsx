@@ -9,6 +9,7 @@ type Props = {
 }
 async function SimilarGames({ relatedCategories, gameId }: Props) {
   const page = 1
+  const pageSize = 3
   const categoriesQuery = {
     categories: relatedCategories,
   }
@@ -16,6 +17,7 @@ async function SimilarGames({ relatedCategories, gameId }: Props) {
     page,
     categoriesQuery,
     `game/${gameId}/similar-games`,
+    pageSize,
   )
 
   return (

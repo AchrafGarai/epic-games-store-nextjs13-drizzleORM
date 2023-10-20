@@ -1,34 +1,14 @@
-import { UserButton } from "@clerk/nextjs";
-import React from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { SearchBar } from "..";
-import { buttonVariants } from "@/components/ui/button";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { SideBar } from "..";
+import { UserButton } from '@clerk/nextjs'
+import React from 'react'
+import { SearchBar } from '..'
+import MobileNav from '../SideBar/MobileNav'
 
 function Navbar() {
   return (
     <div className="flex justify-between items-center mb-8">
       <div className="flex gap-4">
         {/* Mobile Navigation trigger */}
-        <div className="block xl:hidden">
-          <Sheet defaultOpen={false}>
-            <SheetTrigger className={buttonVariants({ variant: "ghost" })}>
-              <HamburgerMenuIcon width={24} height={24} />
-            </SheetTrigger>
-            <SheetContent side={"left"} className=" bg-epic-500">
-              <SheetHeader></SheetHeader>
-              <SideBar />
-            </SheetContent>
-          </Sheet>
-        </div>
+        <MobileNav />
         {/* Mobile Navigation trigger */}
 
         <SearchBar basePath="search" />
@@ -39,7 +19,7 @@ function Navbar() {
         userProfileUrl="/user-profile"
       />
     </div>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

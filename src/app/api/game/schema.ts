@@ -12,4 +12,6 @@ export const createGameSchema = z.object({
   categories: z.array(z.string()),
   price: z.number().pipe(z.coerce.string()),
   coverImageUrl: z.string().url().optional(),
+  bannerImageUrl: z.string().url().optional(),
+  gameDescription: z.string().optional(),
 })
