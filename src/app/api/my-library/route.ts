@@ -3,9 +3,7 @@ import { NextResponse } from "next/server";
 import { libraryItems } from "@/db/game/schema";
 import { users } from "@/db/user/schema";
 import { eq } from "drizzle-orm";
-import { currentUser } from "@clerk/nextjs/app-beta";
 import { auth } from "@clerk/nextjs/server";
-import { headers } from "next/headers";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

@@ -1,12 +1,6 @@
 import { db } from "@/db";
 import { NextResponse } from "next/server";
-import {
-  categories,
-  games,
-  gamesRelations,
-  gamesToCategories,
-  libraryItems,
-} from "@/db/game/schema";
+import { games, gamesToCategories, libraryItems } from "@/db/game/schema";
 import { users } from "@/db/user/schema";
 import { eq, and, inArray } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
