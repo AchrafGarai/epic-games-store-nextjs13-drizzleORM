@@ -1,12 +1,12 @@
-import React from 'react'
-import { Game } from '@/db/game/schema'
-import Link from 'next/link'
-import Image from 'next/image'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
+import React from "react";
+import { Game } from "@/db/game/schema";
+import Link from "next/link";
+import Image from "next/image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 type Props = {
-  game: Game
-}
+  game: Game;
+};
 
 function GameCard({ game }: Props) {
   return (
@@ -26,9 +26,9 @@ function GameCard({ game }: Props) {
         </AspectRatio>
       )}
       <p className="text-xl font-medium">{game.title}</p>
-      <p>${game.price}</p>
+      <p className=" text-neutral-500 font-semibold">${game.price}</p>
     </Link>
-  )
+  );
 }
 
-export default GameCard
+export default GameCard;

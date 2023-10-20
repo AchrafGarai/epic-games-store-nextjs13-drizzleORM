@@ -78,6 +78,7 @@ function GameMedia({ media, activeMedia, gameId }: Props) {
               <div className="flex gap-2">
                 {media.map((media, index) => (
                   <GameMediaThumbnail
+                    key={gameId}
                     activeMedia={activeMedia}
                     index={index}
                     gameId={gameId}

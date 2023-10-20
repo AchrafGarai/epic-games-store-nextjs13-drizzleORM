@@ -1,64 +1,80 @@
-'use client'
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { ReloadIcon } from '@radix-ui/react-icons'
-import { Game } from '@/db/game/schema'
-import { useRouter } from 'next/navigation'
+"use client";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Game } from "@/db/game/schema";
+import { useRouter } from "next/navigation";
 
-function CheckoutButton({ game }: { game: Game }) {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
+function CheckoutButton({ game, isOwned }: { game: Game; isOwned: boolean }) {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const hadnleCheckout = async () => {
     try {
       // Start Loading
-      setIsLoading(true)
+      setIsLoading(true);
       // Fetch Checkout URL
-      var myHeaders = new Headers()
-      myHeaders.append('Content-Type', 'application/json')
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
       var raw = JSON.stringify({
         stripeId: game.stripeId,
         gameId: game.id,
-      })
+      });
 
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: myHeaders,
         body: raw,
-      }
+      };
       const { checkoutUrl } = await fetch(
         `http://localhost:3000/api/checkout`,
-        requestOptions,
+        requestOptions
       )
         .then((res) => res.json())
-        .catch((e) => console.log(e))
+        .catch((e) => console.log(e));
 
       // TODO Redirect User to Checkout
-      router.push(checkoutUrl)
+      router.push(checkoutUrl);
       // Stop  Loading
     } catch (e) {
-      console.log(e)
-      setIsLoading(false)
+      console.log(e);
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
-    <Button className="gap- mb-4" onClick={hadnleCheckout} disabled={isLoading}>
-      {isLoading ? (
+    <>
+      {isOwned ? (
         <>
-          <ReloadIcon
-            width={20}
-            height={20}
-            className="mr-2 h-4 w-4 animate-spin"
-          />
-          Loading...
+          <Button disabled={true} className="gap mb-4">
+            Game In Library
+          </Button>
         </>
       ) : (
-        <>PURCHASE</>
+        <>
+          <Button
+            className="gap mb-4"
+            onClick={hadnleCheckout}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <ReloadIcon
+                  width={20}
+                  height={20}
+                  className="mr-2 h-4 w-4 animate-spin"
+                />
+                Loading...
+              </>
+            ) : (
+              <>PURCHASE</>
+            )}
+          </Button>
+        </>
       )}
-    </Button>
-  )
+    </>
+  );
 }
 
-export default CheckoutButton
+export default CheckoutButton;
