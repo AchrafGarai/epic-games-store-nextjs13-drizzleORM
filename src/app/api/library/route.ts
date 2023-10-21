@@ -1,12 +1,6 @@
 import { db } from "@/db";
 import { NextResponse } from "next/server";
-import {
-  categories,
-  games,
-  gamesRelations,
-  gamesToCategories,
-  libraryItems,
-} from "@/db/game/schema";
+import { games, gamesToCategories, libraryItems } from "@/db/game/schema";
 import { users } from "@/db/user/schema";
 import { eq, and, inArray } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
@@ -58,7 +52,11 @@ export async function GET(request: Request) {
         .offset(offset);
       const data = res.flatMap((obj: any) => obj.games);
       return NextResponse.json({ data });
+    } else {
+      return NextResponse.json({ error: "unable to load library" });
     }
+  } else {
+    return NextResponse.json({ error: "unable to load library" });
   }
 }
 

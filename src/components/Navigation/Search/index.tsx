@@ -30,7 +30,7 @@ function SearchBar({ className, basePath, onSearchChange }: Props) {
     } else if (!query && searchValue === "") {
       router.push(`/${currentPath}`);
     }
-  }, [query, router]);
+  }, [query, router, currentPath, searchValue]);
 
   const handleSearch = (value: string) => {
     onSearchChange ? onSearchChange("q", value) : setSearchValue(value);
