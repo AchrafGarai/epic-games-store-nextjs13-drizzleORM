@@ -1,18 +1,18 @@
-import { db } from "@/db";
-import { NextResponse } from "next/server";
-import { libraryItems } from "@/db/game/schema";
-import { users } from "@/db/user/schema";
-import { eq } from "drizzle-orm";
-import { auth } from "@clerk/nextjs/server";
+import { db } from '@/db'
+import { NextResponse } from 'next/server'
+import { libraryItems } from '@/db/game/schema'
+import { users } from '@/db/user/schema'
+import { eq } from 'drizzle-orm'
+import { auth } from '@clerk/nextjs/server'
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const { userId } = await auth();
-  if (!userId) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-  const limit = Number(searchParams.get("limit"));
-  const offset = Number(searchParams.get("offset")) || null;
+  const { searchParams } = new URL(request.url)
+  const { userId } = await auth()
+  // if (!userId) {
+  //   return new Response("Unauthorized", { status: 401 });
+  // }
+  const limit = Number(searchParams.get('limit'))
+  const offset = Number(searchParams.get('offset')) || null
   try {
     if (userId) {
       const user = await db.query.users.findFirst({
@@ -20,7 +20,7 @@ export async function GET(request: Request) {
         columns: {
           id: true,
         },
-      });
+      })
       if (user) {
         const response = await db.query.libraryItems.findMany({
           where: eq(libraryItems.userId, user.id),
@@ -29,22 +29,22 @@ export async function GET(request: Request) {
           },
           limit: limit,
           offset: offset ? offset : undefined,
-        });
+        })
         const data = response.map((item: any) => {
-          const { game, ...rest } = item;
-          return { ...game, ...rest };
-        });
+          const { game, ...rest } = item
+          return { ...game, ...rest }
+        })
 
-        return NextResponse.json({ data });
+        return NextResponse.json({ data })
       } else {
-        return NextResponse.json({ error: "unable to load library" });
+        return NextResponse.json({ error: 'unable to load library' })
       }
     } else {
-      return NextResponse.json({ error: "unable to load library" });
+      return NextResponse.json({ error: 'unable to load library' })
     }
   } catch (e) {
-    return NextResponse.json({ e });
+    return NextResponse.json({ e })
   }
 }
 
-export const revalidate = 1;
+export const revalidate = 1

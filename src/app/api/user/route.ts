@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
-import { currentUser } from "@clerk/nextjs";
+import { NextResponse } from 'next/server'
+import { currentUser } from '@clerk/nextjs'
 export async function GET() {
-  const user = await currentUser();
+  const user = await currentUser()
 
   if (!user) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 400 })
   }
 
-  return NextResponse.json({ user });
+  return NextResponse.json({ user })
 }
