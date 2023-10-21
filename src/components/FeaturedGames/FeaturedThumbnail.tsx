@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Game } from '@/db/game/schema'
 import Image from 'next/image'
@@ -20,14 +21,15 @@ type CardBaseProps = VariantProps<typeof Variants>
 type Props = CardBaseProps & {
   game: Game
   page: number
+  onThumbnailClick: (game: Game) => void
 }
 
-function FeaturedThumbnail({ game, variant, page }: Props) {
+function FeaturedThumbnail({ game, variant, page, onThumbnailClick }: Props) {
   const pageQuery = `&page=${page}`
   const coverUrl = game.coverImageUrl ? game.coverImageUrl : ''
   return (
-    <Link
-      href={`/?featured=${game.id}${pageQuery}`}
+    <div
+      onClick={() => onThumbnailClick(game)}
       className={cn(Variants({ variant }))}
     >
       <Image
@@ -41,7 +43,7 @@ function FeaturedThumbnail({ game, variant, page }: Props) {
         <p className="px-2 font-medium">{game.title}</p>
         <p className="px-2 text-sm text-neutral-400">${game.price}</p>
       </div>
-    </Link>
+    </div>
   )
 }
 

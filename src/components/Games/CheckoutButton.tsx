@@ -28,7 +28,7 @@ function CheckoutButton({ game, isOwned }: { game: Game; isOwned: boolean }) {
         body: raw,
       };
       const { checkoutUrl } = await fetch(
-        `http://localhost:3000/api/checkout`,
+        `${process.env.API_URL}/checkout`,
         requestOptions
       )
         .then((res) => res.json())

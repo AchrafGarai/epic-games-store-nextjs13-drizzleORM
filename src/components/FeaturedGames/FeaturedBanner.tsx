@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Game } from '@/db/game/schema'
 import Link from 'next/link'
