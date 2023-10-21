@@ -55,7 +55,8 @@ export async function GET(request: Request) {
     .limit(limit)
     .offset(offset)
 
-  const data = await query
+  let data = []
+  data = await query
 
   return NextResponse.json({ data })
 }
