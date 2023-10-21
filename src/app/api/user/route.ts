@@ -4,7 +4,7 @@ export async function GET() {
   const user = await currentUser();
 
   if (!user) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response("Unauthorized", { status:  });
   }
 
   return NextResponse.json({ user });
