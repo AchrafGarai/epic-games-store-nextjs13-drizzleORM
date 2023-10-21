@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs/server'
 
 export const usePlatfroms = async () => {
   const { getToken } = auth()
-  const platforms = (await fetch(`${process.env.API_URL}atfroms`, {
+  const platforms = (await fetch(`${process.env.API_URL}/platfroms`, {
     headers: { Authorization: `Bearer ${await getToken()}` },
   })
     .then((res) => res.json())
