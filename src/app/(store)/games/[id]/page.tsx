@@ -1,50 +1,47 @@
-import GameDetails from "@/components/Games/GameDetails";
-import GameMedia from "@/components/Games/GameMedia";
-import { Category, Game } from "@/db/game/schema";
-import { Media, media } from "@/db/media/schema";
-import { Platform } from "@/db/platforms/schema";
-import { auth } from "@clerk/nextjs/server";
-import { getCategoryNames } from "@/utils/helpers/Games";
+import GameDetails from '@/components/Games/GameDetails'
+import GameMedia from '@/components/Games/GameMedia'
+import { Category, Game } from '@/db/game/schema'
+import { Media, media } from '@/db/media/schema'
+import { Platform } from '@/db/platforms/schema'
+import { auth } from '@clerk/nextjs/server'
+import { getCategoryNames } from '@/utils/helpers/Games'
 
-import Image from "next/image";
-import React from "react";
-import SimilarGames from "./SimilarGames";
+import Image from 'next/image'
+import React from 'react'
+import SimilarGames from './SimilarGames'
 
 type Props = {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
+  params: { id: string }
+  searchParams?: { [key: string]: string | string[] | undefined }
+}
 async function GameDetailsPage({ params, searchParams }: Props) {
-  const { id } = params;
-  const activeImage = Number(searchParams?.image);
-  const { getToken } = auth();
+  const { id } = params
+  const activeImage = Number(searchParams?.image)
+  const { getToken } = auth()
   // Response type
   type Response = {
     data: Game & {
-      media: Media[];
+      media: Media[]
       platforms: {
-        platform: Platform;
-      }[];
+        platform: Platform
+      }[]
       categories: {
-        category: Category;
-      }[];
-    };
-    isOwned: boolean;
-  };
-
-  const { data, isOwned } = (await fetch(
-    `http://localhost:3000/api/game/${id}`,
-    {
-      headers: { Authorization: `Bearer ${await getToken()}` },
+        category: Category
+      }[]
     }
-  )
+    isOwned: boolean
+  }
+
+  const { data, isOwned } = (await fetch(`${process.env.API_URL}/game/${id}`, {
+    headers: { Authorization: `Bearer ${await getToken()}` },
+  })
     .then((res) => res.json())
-    .catch((e) => console.log(e))) as Response;
-  const game = data;
+    .catch((e) => console.log(e))) as Response
+  const game = data
 
   const relatedCategories = getCategoryNames(game.categories)
-    .split(",")
-    .join("|");
+    .split(',')
+    .join('|')
 
   return (
     game && (
@@ -68,7 +65,7 @@ async function GameDetailsPage({ params, searchParams }: Props) {
           {/* </div> */}
         </div>
         <>
-          {relatedCategories && relatedCategories !== "" && (
+          {relatedCategories && relatedCategories !== '' && (
             <>
               <h4 className=" text-lg mb-4 font-medium">Similar Games</h4>
               <SimilarGames
@@ -81,7 +78,7 @@ async function GameDetailsPage({ params, searchParams }: Props) {
         </>
       </div>
     )
-  );
+  )
 }
 
-export default GameDetailsPage;
+export default GameDetailsPage
