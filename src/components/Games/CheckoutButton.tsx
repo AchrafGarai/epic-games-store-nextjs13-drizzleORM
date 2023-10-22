@@ -1,47 +1,47 @@
-"use client";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { Game } from "@/db/game/schema";
-import { useRouter } from "next/navigation";
+'use client'
+import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { ReloadIcon } from '@radix-ui/react-icons'
+import { Game } from '@/db/game/schema'
+import { useRouter } from 'next/navigation'
 
 function CheckoutButton({ game, isOwned }: { game: Game; isOwned: boolean }) {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   const hadnleCheckout = async () => {
     try {
       // Start Loading
-      setIsLoading(true);
+      setIsLoading(true)
       // Fetch Checkout URL
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
+      var myHeaders = new Headers()
+      myHeaders.append('Content-Type', 'application/json')
 
       var raw = JSON.stringify({
         stripeId: game.stripeId,
         gameId: game.id,
-      });
+      })
 
       var requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: myHeaders,
         body: raw,
-      };
+      }
       const { checkoutUrl } = await fetch(
-        `${process.env.API_URL}/checkout`,
-        requestOptions
+        `${process.env.BASE_URL}/api/checkout`,
+        requestOptions,
       )
         .then((res) => res.json())
-        .catch((e) => console.log(e));
+        .catch((e) => console.log(e))
 
       // TODO Redirect User to Checkout
-      router.push(checkoutUrl);
+      router.push(checkoutUrl)
       // Stop  Loading
     } catch (e) {
-      console.log(e);
-      setIsLoading(false);
+      console.log(e)
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <>
@@ -74,7 +74,7 @@ function CheckoutButton({ game, isOwned }: { game: Game; isOwned: boolean }) {
         </>
       )}
     </>
-  );
+  )
 }
 
-export default CheckoutButton;
+export default CheckoutButton

@@ -20,12 +20,10 @@ const Variants = cva('flex gap-2 mb-4 p-3 rounded-xl  transition-all', {
 type CardBaseProps = VariantProps<typeof Variants>
 type Props = CardBaseProps & {
   game: Game
-  page: number
   onThumbnailClick: (game: Game) => void
 }
 
-function FeaturedThumbnail({ game, variant, page, onThumbnailClick }: Props) {
-  const pageQuery = `&page=${page}`
+function FeaturedThumbnail({ game, variant, onThumbnailClick }: Props) {
   const coverUrl = game.coverImageUrl ? game.coverImageUrl : ''
   return (
     <div

@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs/server'
 
 export const useCategories = async () => {
   const { getToken } = auth()
-  const categories = (await fetch(`${process.env.API_URL}/categories`, {
+  const categories = (await fetch(`${process.env.BASE_URL}/api/categories`, {
     headers: { Authorization: `Bearer ${await getToken()}` },
   })
     .then((res) => res.json())

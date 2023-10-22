@@ -5,7 +5,7 @@ import MobileNav from '../SideBar/MobileNav'
 
 function Navbar() {
   return (
-    <div className="flex justify-between items-center mb-8">
+    <div className="flex justify-between items-center mb-8 gap-4">
       <div className="flex gap-4">
         {/* Mobile Navigation trigger */}
         <MobileNav />

@@ -6,16 +6,13 @@ import { useGames } from '@/lib/games'
 import { Game } from '@/db/game/schema'
 type Props = {
   games: Game[]
-  featuredGame?: number
-  page: number
 }
 
-async function FeaturedGames({ featuredGame, page, games }: Props) {
+function FeaturedGames({ games }: Props) {
   const [featured, setFeatured] = useState<Game>()
 
   useEffect(() => {
     setFeatured(games[0])
-    console.log(featured)
   }, [])
 
   return (
@@ -26,7 +23,6 @@ async function FeaturedGames({ featuredGame, page, games }: Props) {
           <li key={game.id}>
             <FeaturedThumbnail
               onThumbnailClick={(value) => setFeatured(value)}
-              page={page}
               game={game}
               variant={game.id === featured?.id ? 'selected' : 'default'}
             />
