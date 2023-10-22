@@ -46,5 +46,3 @@ export async function GET(request: Request) {
     return NextResponse.json({ e })
   }
 }
-
-export const revalidate = 1

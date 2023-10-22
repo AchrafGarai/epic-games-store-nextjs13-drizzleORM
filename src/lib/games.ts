@@ -31,7 +31,7 @@ export const useGames = async <T = Game>(
   const nextPageQuey = createQueryString(nextQuery)
 
   const { data } = (await fetch(
-    `${process.env.API_URL}/${apiPath}${currentPageQuery}`,
+    `${process.env.BASE_URL}/api/${apiPath}${currentPageQuery}`,
     {
       headers: { Authorization: `Bearer ${await getToken()}` },
     },
@@ -41,7 +41,7 @@ export const useGames = async <T = Game>(
     data: T[]
   }
   const nextPage = (await fetch(
-    `${process.env.API_URL}/${apiPath}${nextPageQuey}`,
+    `${process.env.BASE_URL}/api/${apiPath}${nextPageQuey}`,
     { headers: { Authorization: `Bearer ${await getToken()}` } },
   )
     .then((res) => res.json())

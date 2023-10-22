@@ -32,9 +32,12 @@ async function GameDetailsPage({ params, searchParams }: Props) {
     isOwned: boolean
   }
 
-  const { data, isOwned } = (await fetch(`${process.env.API_URL}/game/${id}`, {
-    headers: { Authorization: `Bearer ${await getToken()}` },
-  })
+  const { data, isOwned } = (await fetch(
+    `${process.env.BASE_URL}/api/game/${id}`,
+    {
+      headers: { Authorization: `Bearer ${await getToken()}` },
+    },
+  )
     .then((res) => res.json())
     .catch((e) => console.log(e))) as Response
   const game = data

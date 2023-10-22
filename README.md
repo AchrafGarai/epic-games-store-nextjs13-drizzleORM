@@ -33,9 +33,9 @@ The Epic Games Store clone project is an educational endeavor to recreate the us
 ## Technologies
 
 - [Next.js](https://nextjs.org/) - A React framework for building web applications.
-- [Drizzle](https://drizzle.dev/) - An ORM for database operations.
-- [Clerk](https://clerk.dev/) - A library for authentication and user management.
-- [Neon DB](https://neondb.io/) - A PostgreSQL database for storing application data.
+- [Drizzle](https://orm.drizzle.team/) - An ORM for database operations.
+- [Clerk](https://clerk.com) - A library for authentication and user management.
+- [Neon DB](https://neon.tech/) - A PostgreSQL database for storing application data.
 
 ## Getting Started
 
@@ -43,7 +43,7 @@ The Epic Games Store clone project is an educational endeavor to recreate the us
 
 Before you can run the Epic Games Store clone locally, you'll need to have the following software installed on your system:
 
-- [Node.js](https://nodejs.org/) (>=14.0.0)
+- [Node.js](https://nodejs.org/) (>=18.0.0)
 - [pnpm](https://nodejs.org/)
 
 ### Installation

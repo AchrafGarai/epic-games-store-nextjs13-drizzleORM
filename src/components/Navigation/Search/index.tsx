@@ -1,49 +1,49 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDebounce } from "use-debounce";
-import { cn } from "@/lib/utils";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+'use client'
+import React, { useEffect, useState } from 'react'
+import { Input } from '@/components/ui/input'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useDebounce } from 'use-debounce'
+import { cn } from '@/lib/utils'
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 
 type Props = {
-  className?: string;
-  onSearchChange?: (key: string, value: string) => void;
-  defaultValue?: string;
-  basePath?: string;
-};
+  className?: string
+  onSearchChange?: (key: string, value: string) => void
+  defaultValue?: string
+  basePath?: string
+}
 
 function SearchBar({ className, basePath, onSearchChange }: Props) {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [searchValue, setSearchValue] = useState<string | null>(null);
-  const [query] = useDebounce(searchValue, 300);
-  const pathName = usePathname();
-  const q = useSearchParams();
+  const [searchValue, setSearchValue] = useState<string | null>(null)
+  const [query] = useDebounce(searchValue, 300)
+  const pathName = usePathname()
+  const q = useSearchParams()
 
-  const currentPath = basePath ? basePath : pathName.split("/").pop();
-  const defaultValue = q.get("q") || "";
+  const currentPath = basePath ? basePath : pathName.split('/').pop()
+  const defaultValue = q.get('q') || ''
 
   useEffect(() => {
     if (query) {
-      router.push(`/${currentPath}?q=${searchValue}`);
-    } else if (!query && searchValue === "") {
-      router.push(`/${currentPath}`);
+      router.push(`/${currentPath}?q=${searchValue}`)
+    } else if (!query && searchValue === '') {
+      router.push(`/${currentPath}`)
     }
-  }, [query, router, currentPath, searchValue]);
+  }, [query, router, currentPath, searchValue])
 
   const handleSearch = (value: string) => {
-    onSearchChange ? onSearchChange("q", value) : setSearchValue(value);
-  };
+    onSearchChange ? onSearchChange('q', value) : setSearchValue(value)
+  }
   return (
     <>
       <div className="relative">
         <Input
           defaultValue={defaultValue}
-          className={cn("max-w-xs pr-10", className)}
+          className={cn(' w-full max-w-xs pr-10', className)}
           placeholder="Search the library"
           onChange={(e) => {
-            handleSearch(e.target.value);
+            handleSearch(e.target.value)
           }}
         />
         <MagnifyingGlassIcon
@@ -53,7 +53,7 @@ function SearchBar({ className, basePath, onSearchChange }: Props) {
         />
       </div>
     </>
-  );
+  )
 }
 
-export default SearchBar;
+export default SearchBar

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Game } from '@/db/game/schema'
 import Image from 'next/image'
@@ -5,7 +6,7 @@ import Link from 'next/link'
 import { cva, VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-const Variants = cva('flex gap-2 mb-4 p-3 rounded-xl  transition-all', {
+const Variants = cva('flex gap-2 mb-4 p-3 rounded-xl transition-all', {
   variants: {
     variant: {
       default: '',
@@ -19,20 +20,19 @@ const Variants = cva('flex gap-2 mb-4 p-3 rounded-xl  transition-all', {
 type CardBaseProps = VariantProps<typeof Variants>
 type Props = CardBaseProps & {
   game: Game
-  page: number
+  onThumbnailClick: (game: Game) => void
 }
 
-function FeaturedThumbnail({ game, variant, page }: Props) {
-  const pageQuery = `&page=${page}`
+function FeaturedThumbnail({ game, variant, onThumbnailClick }: Props) {
   const coverUrl = game.coverImageUrl ? game.coverImageUrl : ''
   return (
-    <Link
-      href={`/?featured=${game.id}${pageQuery}`}
+    <div
+      onClick={() => onThumbnailClick(game)}
       className={cn(Variants({ variant }))}
     >
       <Image
         src={coverUrl}
-        height={80}
+        height={60}
         width={60}
         alt=""
         className=" rounded-sm"
@@ -41,7 +41,7 @@ function FeaturedThumbnail({ game, variant, page }: Props) {
         <p className="px-2 font-medium">{game.title}</p>
         <p className="px-2 text-sm text-neutral-400">${game.price}</p>
       </div>
-    </Link>
+    </div>
   )
 }
 

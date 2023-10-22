@@ -1,21 +1,20 @@
-import React, { ReactNode } from "react";
-import GameFilters from "@/components/Filters";
-import { MixerHorizontalIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
+import React, { ReactNode } from 'react'
+import GameFilters from '@/components/Filters'
+import { MixerHorizontalIcon } from '@radix-ui/react-icons'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/sheet'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 type Props = {
-  params: { slug: string };
+  params: { slug: string }
 
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 function Layout({ children, params }: Props) {
   return (
@@ -23,7 +22,7 @@ function Layout({ children, params }: Props) {
       <div className=" pb-4 justify-end flex md:hidden">
         <Sheet>
           <SheetTrigger
-            className={cn("gap-2", buttonVariants({ variant: "ghost" }))}
+            className={cn('gap-2', buttonVariants({ variant: 'ghost' }))}
           >
             <MixerHorizontalIcon width={18} height={18} />
             Filters
@@ -41,7 +40,7 @@ function Layout({ children, params }: Props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Layout;
+export default Layout

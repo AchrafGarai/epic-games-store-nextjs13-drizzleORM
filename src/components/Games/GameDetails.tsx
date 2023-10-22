@@ -1,33 +1,33 @@
-import { Game } from "@/db/game/schema";
-import React from "react";
-import { Separator } from "@/components/ui/separator";
-import DataCell from "@/components/ui/data-cell";
-import { Button } from "@/components/ui/button";
-import { Media } from "@/db/media/schema";
-import { Platform } from "@/db/platforms/schema";
-import { Category } from "@/db/game/schema";
-import { getCategoryNames, getPlatformNames } from "@/utils/helpers/Games";
-import Image from "next/image";
-import CheckoutButton from "@/components/Games/CheckoutButton";
+import { Game } from '@/db/game/schema'
+import React from 'react'
+import { Separator } from '@/components/ui/separator'
+import DataCell from '@/components/ui/data-cell'
+import { Button } from '@/components/ui/button'
+import { Media } from '@/db/media/schema'
+import { Platform } from '@/db/platforms/schema'
+import { Category } from '@/db/game/schema'
+import { getCategoryNames, getPlatformNames } from '@/utils/helpers/Games'
+import Image from 'next/image'
+import CheckoutButton from '@/components/Games/CheckoutButton'
 
 type Props = {
   game: Game & {
-    media: Media[];
+    media: Media[]
     platforms: {
-      platform: Platform;
-    }[];
+      platform: Platform
+    }[]
     categories: {
-      category: Category;
-    }[];
-  };
-  isOwned: boolean;
-};
+      category: Category
+    }[]
+  }
+  isOwned: boolean
+}
 
 export default function GameDetails({ game, isOwned }: Props) {
-  const releaseDate = new Date(game.releasedAt || "");
-  const dateString = releaseDate.toLocaleDateString() || "TBA";
-  const categories = getCategoryNames(game.categories) || "TBA";
-  const platforms = getPlatformNames(game.platforms) || "TBA";
+  const releaseDate = new Date(game.releasedAt || '')
+  const dateString = releaseDate.toLocaleDateString() || 'TBA'
+  const categories = getCategoryNames(game.categories) || 'TBA'
+  const platforms = getPlatformNames(game.platforms) || 'TBA'
 
   return (
     <>
@@ -55,7 +55,7 @@ export default function GameDetails({ game, isOwned }: Props) {
       </div>
 
       {/* Mobile component */}
-      <div className="fixed z-20 bottom-8 p-4 px-6 bg-neutral-900 border rounded-lg flex gap-4 items-center right-8 left-8 lg:hidden">
+      <div className="fixed z-20 bottom-8 p-3  bg-neutral-900 border rounded-lg flex gap-4 items-center right-2 left-2 lg:hidden">
         {game.coverImageUrl && (
           <Image
             className=" rounded-sm"
@@ -66,11 +66,11 @@ export default function GameDetails({ game, isOwned }: Props) {
           />
         )}
         <div className="flex-grow">
-          <p className=" text-lg font-medium mb">{game.title}</p>
+          <p className=" text font-medium mb text-ellipsis">{game.title}</p>
           <p className=" text-neutral-500 text-md">$ {game.price}</p>
         </div>
         <CheckoutButton game={game} isOwned={isOwned} />
       </div>
     </>
-  );
+  )
 }
