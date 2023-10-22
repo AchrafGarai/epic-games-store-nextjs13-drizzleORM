@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation'
 
 function CheckoutButton({ game, isOwned }: { game: Game; isOwned: boolean }) {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
 
+  const [isLoading, setIsLoading] = useState(false)
   const hadnleCheckout = async () => {
     try {
       // Start Loading
@@ -27,10 +27,7 @@ function CheckoutButton({ game, isOwned }: { game: Game; isOwned: boolean }) {
         headers: myHeaders,
         body: raw,
       }
-      const { checkoutUrl } = await fetch(
-        `${process.env.BASE_URL}/api/checkout`,
-        requestOptions,
-      )
+      const { checkoutUrl } = await fetch(`/api/checkout`, requestOptions)
         .then((res) => res.json())
         .catch((e) => console.log(e))
 
