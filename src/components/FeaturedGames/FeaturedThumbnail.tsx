@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { cva, VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-const Variants = cva('flex gap-2 mb-4 p-3 rounded-xl  transition-all', {
+const Variants = cva('flex gap-2 mb-4 p-3 rounded-xl transition-all', {
   variants: {
     variant: {
       default: '',
@@ -32,7 +32,7 @@ function FeaturedThumbnail({ game, variant, onThumbnailClick }: Props) {
     >
       <Image
         src={coverUrl}
-        height={80}
+        height={60}
         width={60}
         alt=""
         className=" rounded-sm"

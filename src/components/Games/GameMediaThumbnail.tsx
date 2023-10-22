@@ -1,15 +1,15 @@
-import Link from "next/link";
-import Image from "next/image";
-import React from "react";
-import { Media } from "@/db/media/schema";
-import { cn } from "@/lib/utils";
+import Link from 'next/link'
+import Image from 'next/image'
+import React from 'react'
+import { Media } from '@/db/media/schema'
+import { cn } from '@/lib/utils'
 
 type Props = {
-  media: Media;
-  index: number;
-  gameId: string;
-  activeMedia: number | undefined;
-};
+  media: Media
+  index: number
+  gameId: string
+  activeMedia: number | undefined
+}
 
 function GameMediaThumbnail({ media, index, gameId, activeMedia }: Props) {
   return (
@@ -17,8 +17,8 @@ function GameMediaThumbnail({ media, index, gameId, activeMedia }: Props) {
       <Link
         className={`${
           activeMedia === index
-            ? "outline outline-2 outline-neutral-200 rounded-md"
-            : ""
+            ? 'outline outline-2 outline-neutral-200 rounded-md w-[180px] shrink-0'
+            : ' w-[180px] shrink-0'
         }`}
         scroll={false}
         key={media.id}
@@ -33,7 +33,7 @@ function GameMediaThumbnail({ media, index, gameId, activeMedia }: Props) {
         />
       </Link>
     </>
-  );
+  )
 }
 
-export default GameMediaThumbnail;
+export default GameMediaThumbnail
