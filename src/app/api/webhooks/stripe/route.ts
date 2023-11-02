@@ -40,8 +40,7 @@ export async function POST(req: Request) {
                   id: true,
                 },
               })
-
-              const result = await db.insert(libraryItems).values({
+              await db.insert(libraryItems).values({
                 gameId: game?.id,
                 userId: user?.id,
               })
@@ -51,7 +50,6 @@ export async function POST(req: Request) {
             console.log(e)
           }
         }
-
         break
       default:
         // other events that we don't handle

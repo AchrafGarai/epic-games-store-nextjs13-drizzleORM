@@ -69,46 +69,18 @@ function GameMedia({ media, activeMedia, gameId }: Props) {
       {media.length > 1 && (
         <>
           <h4 className=" text-lg mb-4 font-medium mt-12 ">Screenshots</h4>
-          {/* <ScrollArea className="rounded-lg border mt-4 bg-neutral-900 h-24  whitespace-nowrap ">
-            <div className="p-4">
-              <div className="flex gap-2">
-                {media.map((media, index) => (
-                  <GameMediaThumbnail
-                    key={gameId}
-                    activeMedia={activeMedia}
-                    index={index}
-                    gameId={gameId}
-                    media={media}
-                  />
-                ))}
-                {media.map((media, index) => (
-                  <GameMediaThumbnail
-                    key={gameId}
-                    activeMedia={activeMedia}
-                    index={index}
-                    gameId={gameId}
-                    media={media}
-                  />
-                ))}
-              </div>
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea> */}
 
-          <ScrollArea className="w-[960px] max-w-[90vw] whitespace-nowrap rounded-md border">
-            <div className="flex w-max space-x-4 p-4">
-              {media.map((media, index) => (
-                <GameMediaThumbnail
-                  key={gameId}
-                  activeMedia={activeMedia}
-                  index={index}
-                  gameId={gameId}
-                  media={media}
-                />
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+          <div className="flex p-4 gap-4 overflow-clip w-full flex-wrap">
+            {media.map((media, index) => (
+              <GameMediaThumbnail
+                key={gameId}
+                activeMedia={activeMedia}
+                index={index}
+                gameId={gameId}
+                media={media}
+              />
+            ))}
+          </div>
         </>
       )}
     </>
