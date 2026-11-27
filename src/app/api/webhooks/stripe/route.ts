@@ -1,65 +1,29 @@
-import { NextResponse } from 'next/server'
-import { stripe } from '@/utils/stripe'
-import { db } from '@/db'
-import { eq } from 'drizzle-orm'
-import { games, libraryItems } from '@/db/game/schema'
-import { users } from '@/db/user/schema'
+import type Stripe from 'stripe'
+import { env } from '@/config/env'
+import { fulfillCheckout } from '@/lib/payments'
+import { getStore } from '@/lib/store'
+import { getStripe } from '@/lib/stripe'
 
-// Stripe will give you a webhook secret when setting up webhooks.
-// well get this later and add it to the .env.local file when testing
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
-
-export async function POST(req: Request) {
-  const payload = await req.text()
-  const signature = req.headers.get('stripe-signature')
-
-  try {
-    const event = stripe.webhooks.constructEvent(
-      payload,
-      signature!,
-      webhookSecret,
-    )
-    switch (event.type) {
-      case 'checkout.session.completed':
-        // handle payment_intent.succeded
-        if (event.type === 'checkout.session.completed') {
-          try {
-            const { client_reference_id } = event.data.object as any
-            const { stripeId, authId } = JSON.parse(client_reference_id)
-
-            if (stripeId && authId) {
-              const game = await db.query.games.findFirst({
-                where: eq(games.stripeId, stripeId),
-                columns: {
-                  id: true,
-                },
-              })
-              const user = await db.query.users.findFirst({
-                where: eq(users.authId, authId),
-                columns: {
-                  id: true,
-                },
-              })
-              await db.insert(libraryItems).values({
-                gameId: game?.id,
-                userId: user?.id,
-              })
-              return NextResponse.json({ message: 'Registered successfully ' })
-            }
-          } catch (e) {
-            console.log(e)
-          }
-        }
-        break
-      default:
-        // other events that we don't handle
-        break
-    }
-  } catch (err) {
-    if (err instanceof Error) {
-      console.error(err.message)
-      return NextResponse.json({ message: err.message }, { status: 400 })
-    }
+export async function POST(request: Request) {
+  const stripe = getStripe()
+  if (!stripe || !env.stripeWebhookSecret) {
+    return Response.json({ error: 'Payments are not configured' }, { status: 501 })
   }
-  return NextResponse.json({ received: true })
+
+  const signature = request.headers.get('stripe-signature')
+  if (!signature) return Response.json({ error: 'Missing signature' }, { status: 400 })
+
+  let event: Stripe.Event
+  try {
+    event = stripe.webhooks.constructEvent(await request.text(), signature, env.stripeWebhookSecret)
+  } catch {
+    return Response.json({ error: 'Invalid signature' }, { status: 400 })
+  }
+
+  if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
+    const result = await fulfillCheckout(await getStore(), event.data.object)
+    if (!result.granted) console.warn(`Checkout ${event.data.object.id} not fulfilled: ${result.reason}`)
+  }
+
+  return Response.json({ received: true })
 }
