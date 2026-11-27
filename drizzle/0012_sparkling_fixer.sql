@@ -1,1 +1,0 @@
-ALTER TABLE "platforms" DROP CONSTRAINT "platforms_platform_id_unique";
