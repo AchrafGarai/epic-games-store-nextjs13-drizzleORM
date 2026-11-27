@@ -1,9 +1,24 @@
-import { SignUp } from "@clerk/nextjs";
+import { SignUp } from '@clerk/nextjs'
+import Link from 'next/link'
+import { buttonVariants } from '@/components/ui/button'
+import { features } from '@/config/env'
 
-export default function Page() {
+export default function SignUpPage() {
   return (
-    <div className="w-full min-h-screen flex justify-center items-center">
-      <SignUp />
+    <div className="flex min-h-screen items-center justify-center p-4">
+      {features.auth ? (
+        <SignUp />
+      ) : (
+        <div className="flex max-w-sm flex-col items-center gap-4 text-center">
+          <h1 className="text-2xl font-semibold">Sign-in isn’t configured</h1>
+          <p className="text-store-300">
+            Add Clerk keys to enable accounts. Until then you can browse the full catalog as a guest.
+          </p>
+          <Link href="/" className={buttonVariants()}>
+            Back to the store
+          </Link>
+        </div>
+      )}
     </div>
-  );
+  )
 }
