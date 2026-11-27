@@ -1,38 +1,28 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
-import { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/lib/utils";
+import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { features } from '@/config/env'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
 export const metadata: Metadata = {
-  title: "Epic Games Store",
-  description: "Demo Store app made with NextJS",
-};
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  title: { default: 'Epic Games Store (demo)', template: '%s · Epic Games Store (demo)' },
+  description:
+    'A portfolio demo of a game storefront built with Next.js, Drizzle ORM and SQLite, with optional Clerk sign-in and Stripe checkout.',
+}
+
 const clerkAppearance = {
-  baseTheme: dark,
-  variables: {
-    colorPrimary: "white",
-    colorText: "white",
-  },
-  elements: {
-    formButtonPrimary: {
-      color: "black",
-    },
-  },
-};
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <ClerkProvider appearance={clerkAppearance}>
-      <html lang="en" suppressHydrationWarning className="bg-epic-500">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </ClerkProvider>
-  );
+  variables: { colorPrimary: '#26bbff', colorBackground: '#202020', colorText: '#fafafa' },
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const page = (
+    <html lang="en" className={inter.className}>
+      <body>{children}</body>
+    </html>
+  )
+  // Clerk is optional: without keys the store runs as a guest-only demo.
+  return features.auth ? <ClerkProvider appearance={clerkAppearance}>{page}</ClerkProvider> : page
 }
